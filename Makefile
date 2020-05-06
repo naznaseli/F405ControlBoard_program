@@ -36,25 +36,8 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
-Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c \
+Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
 $(wildcard src/*.c)
-#Src/system_stm32f1xx.c  
-#Src/main.c \
-#Src/stm32f1xx_it.c \
-#Src/stm32f1xx_hal_msp.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
-#Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
 
 # C++ sources
 CPP_SOURCES = \
@@ -62,9 +45,7 @@ $(wildcard src/*.cpp)
 
 # ASM sources
 ASM_SOURCES =  \
-Startup/startup_stm32f103c8tx.s
-#startup_stm32f103xb.s
-
+Startup/startup_stm32f405rgtx.s
 
 #######################################
 # binaries
@@ -109,7 +90,7 @@ AS_DEFS =
 
 # C defines
 C_DEFS =  \
--DSTM32F103xB
+-DSTM32F405xx
 #-DUSE_HAL_DRIVER \
 
 
@@ -119,11 +100,9 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -IInc \
--IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
+-IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
 -IDrivers/CMSIS/Include \
 -IDrivers/CMSIS/Include
-#-IDrivers/STM32F1xx_HAL_Driver/Inc \
-#-IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy \
 
 # C++ includes
 CPP_INCLUDES = \
@@ -149,7 +128,7 @@ CPPFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = STM32F103C8Tx_FLASH.ld
+LDSCRIPT = STM32F405RGTX_FLASH.ld
 
 # libraries
 LIBS = -lc -lm -lnosys -lstdc++
