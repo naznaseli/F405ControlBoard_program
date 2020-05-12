@@ -22,7 +22,7 @@ public:
     void GPIO_Setup(void);
     void TIM_Setup(void);
     void USART_Setup(void);
-    void SPI_Setup(void);
+    void ADC_Setup(void);
     void bxCAN_Setup(void);
     void IWDG_Setup(void);
 

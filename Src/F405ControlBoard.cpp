@@ -40,8 +40,8 @@ void F405ControlBoard::setupPeripheral(void)
     //USART設定
     USART_Setup();
 
-    //SPI設定
-    SPI_Setup();
+    //ADC設定
+    ADC_Setup();
 
     //CAN設定
     bxCAN_Setup();
@@ -60,46 +60,92 @@ void F405ControlBoard::RCC_Setup(void)
 
 void F405ControlBoard::GPIO_Setup(void)
 {
-    //led[0].setup(, GPIO::PUSHPULL);
-    //led[1].setup(, GPIO::PUSHPULL);
-    //led[2].setup(, GPIO::PUSHPULL);
-    //led[3].setup(, GPIO::PUSHPULL);
+    //led[0].setup(PC9, GPIO::PUSHPULL);
+    //led[1].setup(PC8, GPIO::PUSHPULL);
+    //led[2].setup(PA10, GPIO::PUSHPULL);
+    //led[3].setup(PB3, GPIO::PUSHPULL);
 
-    //button[0].setup(, GPIO::OPENDRAIN);
-    //button[1].setup(, GPIO::OPENDRAIN);
-    //button[2].setup(, GPIO::OPENDRAIN);
-    //button[3].setup(, GPIO::OPENDRAIN);
+    //button[0].setup(PB12, GPIO::FLOATING);
+    //button[1].setup(PB13, GPIO::FLOATING);
+    //button[2].setup(PB14, GPIO::FLOATING);
+    //button[3].setup(PB15, GPIO::FLOATING);
 
-    //limitSw[0].setup(, GPIO::OPENDRAIN);
-    //limitSw[1].setup(, GPIO::OPENDRAIN);
-    //limitSw[2].setup(, GPIO::OPENDRAIN);
-    //limitSw[3].setup(, GPIO::OPENDRAIN);
+    //buzzer
+    //buzzer.setup(PB9, GPIO::PUSHPULL);
+
+    //ユーザエンコーダのスイッチ
+    //ue_sw.setup(PC3, GPIO::FLOATING);
+    //ue_a.setup(PA4, GPIO::FLOATING);
+    //ue_b.setup(PA5, GPIO::FLOATING);
+
+    //lcd
+    //lcd_db7.setup(PC14, GPIO::PUSHPULL);
+    //lcd_db6.setup(PC13, GPIO::PUSHPULL);
+    //lcd_db5.setup(PC0, GPIO::PUSHPULL);
+    //lcd_db4.setup(PC15, GPIO::PUSHPULL);
+    //lcd_e.setup(PC1, GPIO::PUSHPULL);
+    //lcd_rs.setup(PC2, GPIO::PUSHPULL);
+
+    //ADC or IOで条件分岐
+    //limitSw[0].setup(PC4, GPIO::INPUT_PU);
+    //limitSw[1].setup(PC5, GPIO::INPUT_PU);
+    //limitSw[2].setup(PB0, GPIO::INPUT_PU);
+    //limitSw[3].setup(PB1, GPIO::INPUT_PU);
 
     //swdio, swclk
+    //swdio.setup(PA13, GPIO::);
+    //swclk.setup(PA14, GPIO::);
 
 }
 
 void F405ControlBoard::TIM_Setup(void)
 {
+    //エンコーダ0
+    //tim4
+
+    //エンコーダ1
+    //tim3
+
+    //エンコーダ2
+    //tim8
+
+    //エンコーダ3
+    //tim5
+
+    //ユーザエンコーダ
+    //tim10, tim13, tim14
 
 }
 
 void F405ControlBoard::USART_Setup(void)
 {
-    //usart1.setup();
-    //usart2.setup();
-    //usart3.setup();
-    //usart4.setup();
+
+    //microUSB
+    //usart2.setup(USART2, PA2, PA3, 115200);
+
+    //microUSB
+    //usart3.setup(USART3, PB10, PB11, 115200);
+
+    //XA
+    //usart4.setup(UART4, PC10, PC11, 115200);
+
+    //XA
+    //uart5.setup(UART5, PC12, PD2, 115200);
+
+    //SBDBT
+    //usart6.setup(USART6, PC6, PC7, 115200);
 
 }
 
-void F405ControlBoard::SPI_Setup(void)
+void F405ControlBoard::ADC_Setup(void)
 {
-
+    //pc4, pc5, pb0, pb1
+    
 }
 
 void F405ControlBoard::bxCAN_Setup(void)
 {
+    //can1.setup(CAN1, PA11, PA12, 500);
 
 }
 
@@ -115,6 +161,10 @@ void F405ControlBoard::setupInterface(void)
     //コントローラ設定
 
     //PC通信設定
+
+    //IMU設定
+
+    //
 
 }
 

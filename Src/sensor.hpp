@@ -12,9 +12,12 @@ public:
     Sensor();
     ~Sensor();
 
-    void update(void);
+    void input(void);
 
-    Encoder* enc;
+    //Encoder* enc;
+    //Potentio* potentio;
+    //LimitSw* limitSw;
+
 
 private:
 

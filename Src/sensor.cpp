@@ -14,7 +14,10 @@ Sensor::~Sensor()
 
 }
 
-void Sensor::update(void)
+void Sensor::input(void)
 {
+    //ローカルのエンコーダx4
+    //ローカルのADCx4
+    //
 
 }
