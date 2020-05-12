@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stddef.h>
 #include "./peripheral/RCC.hpp"
 //#include "./peripheral/GPIO.hpp"
 //#include "./peripheral/USART.hpp"
@@ -26,18 +27,19 @@ public:
     void bxCAN_Setup(void);
     void IWDG_Setup(void);
 
-    //!
+    //! 周期関数
     void cycle(void);
     void interrupt_1ms(void);
     void interrupt_10ms(void);
 
+    size_t millis(void);
     void delay_us(uint16_t us);
     void delay_ms(uint16_t ms);
 
-
 private:
-    unsigned int m_delayCnt = 0;
-    unsigned int m_buzzerCnt = 0;
+    size_t m_elapsedTime;
+    unsigned int m_delayCnt;
+    unsigned int m_buzzerCnt;
 
 };
 
@@ -59,8 +61,15 @@ public:
 class UserEncoder
 {
 public:
+    UserEncoder();
+    //UserEncoder(GPIO* pinSw, GPIO* pinA, GPIO* pinB, TIM* timR, TIM* timG, TIM* timB);
+    ~UserEncoder();
+
     void flash(uint8_t red, uint8_t green, uint8_t blue);
     void interrupt(void);
     void cycle(void);
     void isPushed(void);
+private:
+    //ピンx3
+    //PWMピンx3
 };

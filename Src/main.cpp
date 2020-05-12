@@ -7,13 +7,15 @@ int main(void)
 {
     //ペリフェラルセットアップ
     //controlBoard->setupPeripheral();
-    //インタフェースセットアップ(LED、ボタン、ユーザエンコーダ、LCD、PSコンx2、エンコーダ)
+    //インタフェースセットアップ
     //controlBoard->setupInterface();
 
     //Sensor sensor();
     //Actuator actuator();
 
     //タイマ割り込み開始
+    //tim3.enableCount();
+    //tim4.enableCount();
 
     while(1)
     {

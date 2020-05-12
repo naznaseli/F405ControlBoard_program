@@ -11,7 +11,7 @@ Sensor::Sensor()
 
 Sensor::~Sensor()
 {
-
+    //センサオブジェクトデストラクト
 }
 
 void Sensor::input(void)

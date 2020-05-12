@@ -18,7 +18,9 @@
 
 F405ControlBoard::F405ControlBoard()
 {
-
+    m_elapsedTime = 0;
+    m_delayCnt = 0;
+    m_buzzerCnt = 0;
 }
 
 F405ControlBoard::~F405ControlBoard()
@@ -156,22 +158,32 @@ void F405ControlBoard::IWDG_Setup(void)
 
 void F405ControlBoard::setupInterface(void)
 {
-    //キャラクタ液晶設定
+    //setupPeripheralで設定したペリフェラルを用いた機能の設定
 
-    //コントローラ設定
+    //キャラクタ液晶設定
+    //clcd.setup(ピン名);
+
+    //コントローラ設定x2
+    //sixaxis1.setup(USART6);
+    //sixaxis2.setup(UART4);
 
     //PC通信設定
 
     //IMU設定
-
-    //
 
 }
 
 void F405ControlBoard::cycle(void)
 {
     //ウォッチドッグタイマ
+    //IWDG_Reset();
 
+    static uint16_t cnt = 0;
+    if(++cnt >= 10000)
+    {
+        cnt = 0;
+        //led0.toggle();
+    }
 }
 
 void F405ControlBoard::interrupt_1ms(void)
@@ -179,7 +191,7 @@ void F405ControlBoard::interrupt_1ms(void)
     static int cnt = 0;
     if(++cnt >= 100)
     {
-        //led0.toggle();
+        //led1.toggle();
         ;
     }
     if(m_delayCnt) m_delayCnt--;
@@ -192,15 +204,22 @@ void F405ControlBoard::interrupt_10ms(void)
     static int cnt = 0;
     if(++cnt >= 100)
     {
-        //led1.toggle();
+        //led2.toggle();
         ;
     }
+}
 
+size_t F405ControlBoard::millis(void)
+{
+    return m_elapsedTime;
 }
 
 void F405ControlBoard::delay_us(uint16_t us)
 {
-    //nop();
+    //while(us--)
+    //{
+    //    asm("NOP");
+    //}
 }
 
 void F405ControlBoard::delay_ms(uint16_t ms)
