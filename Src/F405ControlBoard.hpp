@@ -73,3 +73,5 @@ private:
     //ピンx3
     //PWMピンx3
 };
+
+extern F405ControlBoard* board;

@@ -22,26 +22,3 @@ public:
 private:
 
 };
-
-class Encoder
-{
-public:
-    uint16_t read(void);
-    void set(uint16_t count);
-    void reset(void);
-
-};
-
-class Potentio
-{
-public:
-    uint16_t read(void);
-    
-};
-
-class LimitSw
-{
-public:
-    bool read(void);
-
-};

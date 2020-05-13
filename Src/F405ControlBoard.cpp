@@ -1,20 +1,25 @@
 #include "F405ControlBoard.hpp"
-#include "sensor.hpp"
-#include "actuator.hpp"
+#include "./parts/sensor.hpp"
+#include "./parts/actuator.hpp"
+
+F405ControlBoard* board;
 
 //GPIO led[0], button[4], limitSw[4];
 //GPIO swdio, swclk;
 //USART usart1, usart2, usart3, uart4, uart5;
-//TIM
-//bxCAN
-//SPI microSD;
+//TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
+//bxCAN can1;
 //Characterlcd clcd;
 
-//PCCom* pccom;
-//Sixaxis* sixaxis;
+//PC* pc;
 
-//Sensor sensor;
-//Actuator actuator;
+//センサとして扱うかどうか
+//sensor, actuatorとくくらずparts.cpp
+//SIXAXIS* sixaxis;
+//IMU* r1070;
+
+Sensor* sensor;
+Actuator* actuator;
 
 F405ControlBoard::F405ControlBoard()
 {
@@ -160,6 +165,8 @@ void F405ControlBoard::setupInterface(void)
 {
     //setupPeripheralで設定したペリフェラルを用いた機能の設定
 
+    //ユーザエンコーダクラス
+
     //キャラクタ液晶設定
     //clcd.setup(ピン名);
 
@@ -167,9 +174,9 @@ void F405ControlBoard::setupInterface(void)
     //sixaxis1.setup(USART6);
     //sixaxis2.setup(UART4);
 
-    //PC通信設定
-
-    //IMU設定
+    //sixaxis = new SIXAXIS(&usart6);
+    //pc = new PC(&usart3);
+    //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
 
 }
 
@@ -194,8 +201,11 @@ void F405ControlBoard::interrupt_1ms(void)
         //led1.toggle();
         ;
     }
+    m_elapsedTime++;
     if(m_delayCnt) m_delayCnt--;
     if(m_buzzerCnt) m_buzzerCnt--;
+
+    //ユーザエンコーダの読み取り
 
 }
 
