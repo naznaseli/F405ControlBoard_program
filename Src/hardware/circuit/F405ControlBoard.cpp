@@ -165,19 +165,24 @@ void F405ControlBoard::setupInterface(void)
 {
     //setupPeripheralで設定したペリフェラルを用いた機能の設定
 
+    //led = new Led[4];
+    //button = new Button[4];
+
     //ユーザエンコーダクラス
+    //userEnc = new UserEncoder;
 
     //キャラクタ液晶設定
     //clcd.setup(ピン名);
 
+    //通信系
     //コントローラ設定x2
     //sixaxis1.setup(USART6);
     //sixaxis2.setup(UART4);
 
+    //通信を何で使うか決める
     //sixaxis = new SIXAXIS(&usart6);
     //pc = new PC(&usart3);
     //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
-
 }
 
 void F405ControlBoard::cycle(void)

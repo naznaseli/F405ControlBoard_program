@@ -1,6 +1,7 @@
 #include "F405ControlBoard.hpp"
 
 //TODO: 割り込み処理のRTOS化
+//THINK: タイムスタンプほしいな
 
 int main(void)
 {
@@ -9,6 +10,7 @@ int main(void)
     //インタフェースセットアップ
     //controlBoard->setupInterface();
 
+    //ここシングルトン
     //sensor = new Sensor();
     //actuator = new Actuator();
 
@@ -26,6 +28,14 @@ int main(void)
 //! 1ms割り込み
 void interrupt_1ms(void)
 {
+    //シングルトン
+    //ローカル/更新頻度高いセンサ更新
+    //sensor.update_1ms();
+
+    //ローカルのアクチュエータ/更新頻度高いアクチュエータ更新
+    //actuator.update_1ms();
+
+    //コントローラ更新
 
 }
 
@@ -34,5 +44,9 @@ void interrupt_1ms(void)
 //! 10ms割り込み
 void interrupt_10ms(void)
 {
+    //sensor.update_10ms();
+    //actuator.update_10ms();
+
+    //制御こ↑こ↓
 
 }

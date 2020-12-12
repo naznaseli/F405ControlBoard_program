@@ -9,6 +9,13 @@
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
 
+//シングルトンオブジェクト
+F405ControlBoard* m_board;
+
+//基板の機能、設定
+//センサアクチュエータなし？
+//大会で使用するマシン構成(センサアクチュエータの数)とは切り離す？(使用する全センサアクチュエータ)>(この基板で読み取るセンサアクチュエータ)
+//基板1枚に対して1つだけ→シングルトン
 class F405ControlBoard
 {
 public:
@@ -19,14 +26,6 @@ public:
     void setupPeripheral(void);
     void setupInterface(void);
 
-    void RCC_Setup(void);
-    void GPIO_Setup(void);
-    void TIM_Setup(void);
-    void USART_Setup(void);
-    void ADC_Setup(void);
-    void bxCAN_Setup(void);
-    void IWDG_Setup(void);
-
     //! 周期関数
     void cycle(void);
     void interrupt_1ms(void);
@@ -36,42 +35,24 @@ public:
     void delay_us(uint16_t us);
     void delay_ms(uint16_t ms);
 
+    //基板にある数だけインスタンス化
+    //Led* led;
+    //Button* button;
+    //UserEncoder* userEnc;
+
 private:
     size_t m_elapsedTime;
     unsigned int m_delayCnt;
     unsigned int m_buzzerCnt;
 
-};
-
-//! 多重割り込み禁止
-class ProtectInterrupt
-{
-public:
-    ProtectInterrupt()
-    {
-        //__disable_irq();
-    };
-
-    ~ProtectInterrupt()
-    {
-        //__enable_irq();
-    };
-};
-
-class UserEncoder
-{
-public:
-    UserEncoder();
-    //UserEncoder(GPIO* pinSw, GPIO* pinA, GPIO* pinB, TIM* timR, TIM* timG, TIM* timB);
-    ~UserEncoder();
-
-    void flash(uint8_t red, uint8_t green, uint8_t blue);
-    void interrupt(void);
-    void cycle(void);
-    void isPushed(void);
-private:
-    //ピンx3
-    //PWMピンx3
+    //! setup中身
+    void RCC_Setup(void);
+    void GPIO_Setup(void);
+    void TIM_Setup(void);
+    void USART_Setup(void);
+    void ADC_Setup(void);
+    void bxCAN_Setup(void);
+    void IWDG_Setup(void);
 };
 
 extern F405ControlBoard* board;
