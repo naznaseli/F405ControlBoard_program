@@ -4,6 +4,12 @@
 #include "mechanism/slider_z.hpp"
 #include "mechanism/hand.hpp"
 
+//回路関連
+//SIXAXIS sixaxis3;
+//Imu mpu6050;
+
+//マシン関連
+
 //マシン全体管理みたいな？
 //非常停止？
 typedef enum
@@ -75,6 +81,9 @@ public:
 
 
 private:
+    //:******************************
+    //! machine
+    //:******************************
     //足回り
     //Mecanum* mecanum;
     //上部
@@ -83,5 +92,15 @@ private:
     //Hand* handTriangle;
     //Hand* handSquare1;
     //Hand* handSquare2;
+
+    //別ファイル分けてもいいかもね
+    //:******************************
+    //! circuit
+    //:******************************
+    //Led* m_ledCircuit;
+    //Led* m_ledRound;
+    //Button* m_buttonCircuit;
+    //Button* m_buttonIOBoard;
+    //UserEncoder* m_userEnc;
 
 };

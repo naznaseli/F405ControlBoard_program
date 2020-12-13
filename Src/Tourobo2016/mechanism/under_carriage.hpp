@@ -46,33 +46,16 @@ typedef struct
     double length;//機体の進んだ距離
 }tagLocalization;
 
-//抽象クラス？
-class UnderCarriage
-{
-public:
-    UnderCarriage();
-    ~UnderCarriage();
-    virtual void moveVel(Eigen::Vector2d vel);
-
-    //自己位置推定
-	//CDeadReckoning* getDeadRec(){ return &m_deadRec; }
-protected:
-	CEncoder *m_encoder_x;
-	CEncoder *m_encoder_y;
-	tagTgtRoboMove m_tgtRoboMove;
-private:
-
-	DeadReckoning m_deadRec;
-	};
-
-//
+//フィールド込み？
+//マニュアル操縦想定？
 class Mecanum : public UnderCarriage
 {
 public:
     Mecanum(
         WheelUnit* wheelUnitFL, WheelUnit* wheelUnitFR,
         WheelUnit* wheelUnitRL, WheelUnit* wheelUnitRR,
-        Encoder* encX, Encoder* encY);
+        Encoder* encX, Encoder* encY,
+        Imu* imu);
 
     ~Mecanum();
 
@@ -84,11 +67,15 @@ private:
     Encoder* encY;
 
     //タイヤ
-    WheelUnit *m_wheelFL;
-    WheelUnit *m_wheelFR;
-    WheelUnit *m_wheelRL;
-    WheelUnit *m_wheelRR;
+    WheelUnit* m_wheelFL;
+    WheelUnit* m_wheelFR;
+    WheelUnit* m_wheelRL;
+    WheelUnit* m_wheelRR;
 
+    //ラインセンサ
+    LineSensor* m_lineSensorFront;
+    LineSensor* m_lineSensorLeft;
+    LineSensor* m_lineSensorRight;
 
 };
 
@@ -102,15 +89,15 @@ private:
     Encoder* encY;
 
     //ステアリング用
-    WheelUnit *m_steeringFL;
-    WheelUnit *m_steeringFR;
-    WheelUnit *m_steeringBL;
-    WheelUnit *m_steeringBR;
+    WheelUnit* m_steeringFL;
+    WheelUnit* m_steeringFR;
+    WheelUnit* m_steeringBL;
+    WheelUnit* m_steeringBR;
     //駆動用
-    WheelUnit *m_driveFL;
-    WheelUnit *m_driveFR;
-    WheelUnit *m_driveBL;
-    WheelUnit *m_driveBR;
+    WheelUnit* m_driveFL;
+    WheelUnit* m_driveFR;
+    WheelUnit* m_driveBL;
+    WheelUnit* m_driveBR;
 
 };
 
@@ -121,8 +108,8 @@ public:
 private:
     Encoder* encL;
     Encoder* encR;
-    WheelUnit *m_wheelUnitL;
-    WheelUnit *m_wheelUnitR;
+    WheelUnit* m_wheelUnitL;
+    WheelUnit* m_wheelUnitR;
 
 };
 
@@ -130,6 +117,12 @@ private:
 class FourWheel : public UnderCarriage
 {
 public:
+    movePos();
 
 private:
+    Encoder* encY;  //横方向エンコーダ
+    WheelUnit* m_wheelUnitFL;   //操縦者から見て左前
+    WheelUnit* m_wheelUnitFR;
+    WheelUnit* m_wheelUnitRL;
+    WheelUnit* m_wheelUnitRR;
 };

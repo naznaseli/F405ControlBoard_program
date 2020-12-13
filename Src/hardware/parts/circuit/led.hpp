@@ -1,4 +1,6 @@
 #pragma once
+#include "GPIO.hpp"
+#include "parts.hpp"
 
 //ポリモーフィズム意識
 //ローカル/リモート(e.g.IO基板接続してとか)対応
@@ -8,13 +10,18 @@ public:
     Led(GPIO* gpio);
     ~Led();
 
-    void on(void);
-    void off(void);
-    void light(int sw);
+    void turnOn(void);
+    void turnOff(void);
 
     void toggle(void);
 
 private:
+    PartsType m_partsType;
+
+    //LOCAL
     GPIO* m_gpio;
+
+    //CAN
+    uint16_t m_address;
 
 };

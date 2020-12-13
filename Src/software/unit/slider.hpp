@@ -3,14 +3,15 @@
 #include "parts/encoder.hpp"
 #include "parts/potentio.hpp"
 
-class Slider
+//抽象クラス
+class SliderMechanism
 {
 public:
-    Slider(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin, LimitSw* limitSwMax);
-    Slider(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin);
-    Slider(Motor* motor, Encoder* encoder, Potentio* potentio);
-    Slider(Motor* motor, Encoder* encoder, LimitSw* limitSwMin, LimitSw* limitSwMax);
-    Slider(Motor* motor, Potentio* potentio);
+    SliderMechanism(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin, LimitSw* limitSwMax);
+    SliderMechanism(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin);
+    SliderMechanism(Motor* motor, Encoder* encoder, Potentio* potentio);
+    SliderMechanism(Motor* motor, Encoder* encoder, LimitSw* limitSwMin, LimitSw* limitSwMax);
+    SliderMechanism(Motor* motor, Potentio* potentio);
 
     //定PWMで動かして限界調べる
     void findLimitVal(void);

@@ -2,10 +2,10 @@
 
 //Zスライダ
 //専用クラス
-class SliderZ
+class SliderZ : public SliderMechanism
 {
 public:
-    SliderZ(SliderUnit* sliderUnit);
+    //SliderZ(DcMotor* dcMotor, Encoder* encoder, Potentio);
     ~SliderZ();
     //一定PWMで動作(+で上昇)
     //[%]
@@ -18,5 +18,4 @@ public:
     void keepPos(double pos);
 
 private:
-    //SliderUnit sliderZ;
 };

@@ -9,17 +9,13 @@ F405ControlBoard* board;
 //USART usart1, usart2, usart3, uart4, uart5;
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
-//Characterlcd clcd;
-
+//Clcd clcd;
+//
 //PC* pc;
-
-//センサとして扱うかどうか
-//sensor, actuatorとくくらずparts.cpp
-//SIXAXIS* sixaxis;
-//IMU* r1070;
-
-Sensor* sensor;
-Actuator* actuator;
+//
+//Controller* sixaxis3;
+//Imu* r1070;
+//Imu* mpu6050;
 
 F405ControlBoard::F405ControlBoard()
 {

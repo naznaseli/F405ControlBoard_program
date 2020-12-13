@@ -1,6 +1,6 @@
 #include "slider.hpp"
 
-Slider::Slider(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin, LimitSw* limitSwMax)
+SliderMechanism::SliderMechanism(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin, LimitSw* limitSwMax)
 {
     m_motor = motor;
     m_encoder = encoder;
@@ -9,7 +9,7 @@ Slider::Slider(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limi
     m_limitSwMax = limitSwMax;
 }
 
-Slider::Slider(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin)
+SliderMechanism::SliderMechanism(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limitSwMin)
 {
     m_motor = motor;
     m_encoder = encoder;
@@ -17,14 +17,14 @@ Slider::Slider(Motor* motor, Encoder* encoder, Potentio* potentio, LimitSw* limi
     m_limitSwMin = limitSwMin;
 }
 
-Slider::Slider(Motor* motor, Encoder* encoder, Potentio* potentio)
+SliderMechanism::SliderMechanism(Motor* motor, Encoder* encoder, Potentio* potentio)
 {
     m_motor = motor;
     m_encoder = encoder;
     m_potentio = potentio;
 }
 
-Slider::Slider(Motor* motor, Encoder* encoder, LimitSw* limitSwMin, LimitSw* limitSwMax)
+SliderMechanism::SliderMechanism(Motor* motor, Encoder* encoder, LimitSw* limitSwMin, LimitSw* limitSwMax)
 {
     m_motor = motor;
     m_encoder = encoder;
@@ -32,14 +32,14 @@ Slider::Slider(Motor* motor, Encoder* encoder, LimitSw* limitSwMin, LimitSw* lim
     m_limitSwMax = limitSwMax;
 }
 
-Slider::Slider(Motor* motor, Potentio* potentio)
+SliderMechanism::SliderMechanism(Motor* motor, Potentio* potentio)
 {
 
     m_motor = motor;
     m_potentio = potentio;
 }
 
-bool Slider::findLimitVal(void)
+bool SliderMechanism::findLimitVal(void)
 {
     m_motor->pwm(30.0);
     //当たったら少し戻す

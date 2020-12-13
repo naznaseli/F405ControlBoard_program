@@ -18,9 +18,10 @@ F405ControlBoard* m_board;
 //基板1枚に対して1つだけ→シングルトン
 class F405ControlBoard
 {
-public:
+private:
     F405ControlBoard();
     ~F405ControlBoard();
+public:
 
     //! setup
     void setupPeripheral(void);

@@ -1,12 +1,18 @@
 #pragma once
+#include "parts/actuator/air_cylinder.hpp"
 
 //シリンダx2
 //4本分
-class Hand
+class Arm
 {
 public:
+    Arm(AirCylinder cylinderArm, AirCylinder cylinderHand);
+    void stretchArm(void);
+    void shrinkArm(void);
+    void catch(void);
+    void release(void);
 
 private:
-    //AirCylinder cylinderArm;   //横に伸ばす
-    //AirCylinder cylinderHand;  //掴む放す
+    AirCylinder m_cylinderArm;   //横に伸ばすシリンダ
+    AirCylinder m_cylinderHand;  //掴む放すシリンダ
 };

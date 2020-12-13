@@ -8,14 +8,20 @@ F405ControlBoard_program
     ├ .settings
     ├ Drivers/                   F405ドライバ
     ├ src/
-0   │   ├ hardware/             ハードの低レイヤ部分
-0   │   │   ├ actuator/
-0   │   │   ├ sensor/
-0   │   │   ├ circuit/
-0   │   │   ├ communication/
-0   │   │   ├ function/
-0   │   │   ├ parts/            アクチュエータ、センサ、通信or実基板操作のインタフェース
+0   │   ├ hardware/              ハードの低レイヤ部分
+0   │   │   ├ communication/    通信関連
+0   │   │   ├ function/         回路班便利機能
+0   │   │   ├ parts/            アクチュエータ、センサ、通信or実基板操作のインタフェース(peripheralの一個上のレイヤ、制御班とのインタフェース)
+0   │   │   │   ├ actuator/    アクチュエータ
+0   │   │   │   ├ circuit/     LED、ボタン、ユーザエンコーダ、LCD、TFT
+0   │   │   │   └ sensor/      センサ
 0   │   │   └ peripheral/       一番低レイヤの部分
+0   │   │   │   ├ RCC.cpp/hpp
+0   │   │   │   ├ GPIO.cpp/hpp
+0   │   │   │   ├ TIM.cpp/hpp
+0   │   │   │   ├ IWDG.cpp/hpp
+0   │   │   │   ├ USART.cpp/hpp
+0   │   │   │   ├ bxCAN.cpp/hpp
     │   ├ software/             制御関連(制御汎用ライブラリみたいな)、ハードに依存しない
     │   │   ├ function/         制御用便利機能
     │   │   │   ├ deadreackoning.cpp/hpp
