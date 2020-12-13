@@ -1,9 +1,11 @@
 #pragma once
 
+//ポリモーフィズム意識
+//ローカル/リモート(e.g.IO基板接続してとか)対応
 class Led
 {
 public:
-    Led(GPIO& gpio);
+    Led(GPIO* gpio);
     ~Led();
 
     void on(void);
@@ -13,5 +15,6 @@ public:
     void toggle(void);
 
 private:
+    GPIO* m_gpio;
 
 };
