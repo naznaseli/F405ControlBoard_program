@@ -1,7 +1,7 @@
 #include "control.hpp"
 
 //! PSコンの入力に応じて操作
-void manual_NHK2017(void)
+void manual(void)
 {
     //psコン読み取り(通信及びパケット解析は別の場所でしてる)
     //アクチュエータの操作量に変換
@@ -13,7 +13,17 @@ void manual_NHK2017(void)
 }
 
 //! 半自動、psコン入力に対応
-void semiauto_NHK2017(void)
+void autoMode(void)
+{
+
+}
+
+void match_manual(void)
+{
+
+}
+
+void match_auto(void)
 {
 
 }

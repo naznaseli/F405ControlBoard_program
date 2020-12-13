@@ -22,6 +22,9 @@ int main(void)
     {
         board->cycle();
         //control->cycle();
+
+        //目標値反映
+        //can送信
     }
 }
 
@@ -47,6 +50,9 @@ void interrupt_10ms(void)
     //sensor.update_10ms();
     //actuator.update_10ms();
 
+    //コントローラ読み取り
+
+    //目標値変更
     //制御こ↑こ↓
 
 }
