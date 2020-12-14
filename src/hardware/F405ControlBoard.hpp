@@ -1,5 +1,4 @@
 #pragma once
-
 #include <stddef.h>
 #include "./peripheral/RCC.hpp"
 //#include "./peripheral/GPIO.hpp"
@@ -9,8 +8,6 @@
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
 
-//シングルトンオブジェクト
-F405ControlBoard* m_board;
 
 //基板の機能、設定
 //センサアクチュエータなし？
@@ -20,8 +17,9 @@ class F405ControlBoard
 {
 private:
     F405ControlBoard();
-    ~F405ControlBoard();
+    ~F405ControlBoard(){};
 public:
+    static F405ControlBoard* getInstance(){ return &m_instance; }
 
     //! setup
     void setupPeripheral(void);
@@ -36,15 +34,12 @@ public:
     void delay_us(uint16_t us);
     void delay_ms(uint16_t ms);
 
-    //基板にある数だけインスタンス化
-    //Led* led;
-    //Button* button;
-    //UserEncoder* userEnc;
-
 private:
+    static F405ControlBoard m_instance;
+
     size_t m_elapsedTime;
     unsigned int m_delayCnt;
-    unsigned int m_buzzerCnt;
+    //unsigned int m_buzzerCnt;
 
     //! setup中身
     void RCC_Setup(void);
@@ -56,4 +51,3 @@ private:
     void IWDG_Setup(void);
 };
 
-extern F405ControlBoard* board;

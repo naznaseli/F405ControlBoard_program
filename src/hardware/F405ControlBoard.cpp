@@ -1,8 +1,9 @@
 #include "F405ControlBoard.hpp"
-#include "./parts/sensor.hpp"
-#include "./parts/actuator.hpp"
+//#include "./parts/sensor.hpp"
+//#include "./parts/actuator.hpp"
 
-F405ControlBoard* board;
+//シングルトンインスタンス
+F405ControlBoard F405ControlBoard::m_instance;
 
 //GPIO led[0], button[4], limitSw[4];
 //GPIO swdio, swclk;
@@ -20,13 +21,8 @@ F405ControlBoard* board;
 F405ControlBoard::F405ControlBoard()
 {
     m_elapsedTime = 0;
-    m_delayCnt = 0;
-    m_buzzerCnt = 0;
-}
-
-F405ControlBoard::~F405ControlBoard()
-{
-
+    //m_delayCnt = 0;
+    //m_buzzerCnt = 0;
 }
 
 void F405ControlBoard::setupPeripheral(void)

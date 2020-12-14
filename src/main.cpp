@@ -1,14 +1,13 @@
 #include "hardware/F405ControlBoard.hpp"
-#include "machine.hpp"
+//#include "machine.hpp"
 
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
 
-
 int main(void)
 {
     //ペリフェラルセットアップ
-    //controlBoard->setupPeripheral();
+    F405ControlBoard::getInstance()->setupPeripheral();
     //インタフェースセットアップ
     //controlBoard->setupInterface();
     //sixaxis3 = new Sixaxis(&usart4);
@@ -24,11 +23,11 @@ int main(void)
 
     while(1)
     {
-        board->cycle();
+        F405ControlBoard::getInstance()->cycle();
 
         //目標値反映
         //can送信、local反映
-        actuator::update();
+        //actuator::update();
     }
 }
 
@@ -46,7 +45,7 @@ void interrupt_1ms(void)
 //! 10ms割り込み
 void interrupt_10ms(void)
 {
-    sensor::update();
+    //sensor::update();
 
 
     //目標値変更
