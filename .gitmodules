@@ -1,3 +1,0 @@
-[submodule "src/hardware/peripheral"]
-	path = src/hardware/peripheral
-	url = https://github.com/systas0/STM32F4xx_Library.git
