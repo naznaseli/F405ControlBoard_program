@@ -23,4 +23,4 @@ F405ControlBoardのプログラム
 2. Write program from ST-Link or USB connector
 
 ## Requirement
-- F4ライブラリ (https://github.com/systas0/STM32F4xx_Library.git)
+- STM32F4 library (https://github.com/systas0/STM32F4xx_Library.git)
