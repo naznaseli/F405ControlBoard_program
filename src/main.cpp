@@ -7,20 +7,27 @@
 
 int main(void)
 {
-    GPIOA->ODR = 0xFFFFFFFF;
-    ledPin[0].write(1);
-    ledPin[1].write(1);
-    ledPin[2].write(1);
-    ledPin[3].write(1);
     //ペリフェラルセットアップ
     F405ControlBoard::getInstance()->setupPeripheral();
+    F405ControlBoard::getInstance()->setupInterface();
 
-    ledPin[0].write(1);
-    ledPin[1].write(1);
-    ledPin[2].write(1);
-    ledPin[3].write(1);
-    //インタフェースセットアップ
-    //controlBoard->setupInterface();
+    led[0].write(1);
+    led[1].write(1);
+    led[2].write(1);
+    led[3].write(1);
+    //buzzerPin.write(1);
+    buzzer.write(1);
+    for(int i = 0; i < 100000; i++);
+    for(int i = 0; i < 100000; i++);
+    for(int i = 0; i < 100000; i++);
+    for(int i = 0; i < 100000; i++);
+    for(int i = 0; i < 100000; i++);
+    led[0].write(1);
+    led[1].write(1);
+    led[2].write(1);
+    led[3].write(1);
+    buzzer.write(0);
+
     //sixaxis3 = new Sixaxis(&usart4);
     //mpu6050 = new Gyro(&usart3, IMU_TYPE_MPU6050);
 
@@ -34,11 +41,21 @@ int main(void)
 
     while(1)
     {
-        //F405ControlBoard::getInstance()->cycle();
+        F405ControlBoard::getInstance()->cycle();
+
+        if(button[0].read()) led[0].write(1);
+        else led[0].write(0);
+        if(button[1].read()) led[1].write(1);
+        else led[1].write(0);
+        if(button[2].read()) led[2].write(1);
+        else led[2].write(0);
+        if(button[3].read()) led[3].write(1);
+        else led[3].write(0);
 
         //目標値反映
         //can送信、local反映
         //actuator::update();
+
     }
 }
 

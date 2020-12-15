@@ -1,15 +1,17 @@
 #pragma once
 #include "../parts.hpp"
-#include "GPIO.hpp"
+#include "../../peripheral/GPIO.hpp"
 #include <stdint.h>
 
 class Buzzer
 {
 public:
-    Buzzer(PartsType partsType = LOCAL, GPIO* gpio);
+    Buzzer(){};
+    Buzzer(GPIO* gpio);
     ~Buzzer();
-    void setupGPIO(GPIO* gpio);
+    void setup(GPIO* gpio);
     void beep(uint16_t beepTime);
+    void write(int val);
 
 private:
     PartsType m_partsType;

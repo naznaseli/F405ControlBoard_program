@@ -6,13 +6,17 @@
 F405ControlBoard F405ControlBoard::m_instance;
 
 GPIO ledPin[4];
-//GPIO buttonPin[4]
+GPIO buttonPin[4];
 //GPIO limitSwPin[4];
-//GPIO buzzerPin;
+GPIO buzzerPin;
 //GPIO swdio, swclk;
 //USART usart1, usart2, usart3, uart4, uart5;
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
+
+Led led[4];
+Button button[4];
+Buzzer buzzer;
 //Clcd clcd;
 //
 //PC* pc;
@@ -24,7 +28,7 @@ GPIO ledPin[4];
 F405ControlBoard::F405ControlBoard()
 {
     m_elapsedTime = 0;
-    //m_delayCnt = 0;
+    m_delayCnt = 0;
     //m_buzzerCnt = 0;
 }
 
@@ -53,6 +57,37 @@ void F405ControlBoard::setupPeripheral(void)
 
 }
 
+void F405ControlBoard::setupInterface(void)
+{
+    led[0].setup(&ledPin[0]);
+    led[1].setup(&ledPin[1]);
+    led[2].setup(&ledPin[2]);
+    led[3].setup(&ledPin[3]);
+    button[0].setup(&buttonPin[0], -1);
+    button[1].setup(&buttonPin[1], -1);
+    button[2].setup(&buttonPin[2], -1);
+    button[3].setup(&buttonPin[3], -1);
+    buzzer.setup(&buzzerPin);
+
+    //ユーザエンコーダクラス
+    //userEnc = new UserEncoder;
+
+    //キャラクタ液晶設定
+    //clcd.setup(ピン名);
+
+    //通信系
+    //コントローラ設定x2
+    //sixaxis1.setup(USART6);
+    //sixaxis2.setup(UART4);
+
+    //通信を何で使うか決める
+    //sixaxis = new SIXAXIS(&usart6);
+    //pc = new PC(&usart3);
+    //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
+}
+
+
+
 void F405ControlBoard::RCC_Setup(void)
 {
     //TODO: セットアップ関数中身実装
@@ -64,17 +99,17 @@ void F405ControlBoard::RCC_Setup(void)
 void F405ControlBoard::GPIO_Setup(void)
 {
     ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
-    ledPin[1].setup(PC8, GPIO::PUSHPULL);
-    ledPin[2].setup(PA10, GPIO::PUSHPULL);
-    ledPin[3].setup(PB3, GPIO::PUSHPULL);
+    ledPin[1].setup(PC8, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
+    ledPin[2].setup(PA10, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
+    ledPin[3].setup(PB3, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
 
-    //buttonPin[0].setup(PB12, GPIO::FLOATING);
-    //buttonPin[1].setup(PB13, GPIO::FLOATING);
-    //buttonPin[2].setup(PB14, GPIO::FLOATING);
-    //buttonPin[3].setup(PB15, GPIO::FLOATING);
+    buttonPin[0].setup(PB12, GPIO::FLOATING);
+    buttonPin[1].setup(PB13, GPIO::FLOATING);
+    buttonPin[2].setup(PB14, GPIO::FLOATING);
+    buttonPin[3].setup(PB15, GPIO::FLOATING);
 
     //buzzer
-    //buzzerPin.setup(PB9, GPIO::PUSHPULL);
+    buzzerPin.setup(PB9, GPIO::PUSHPULL);
 
     //ユーザエンコーダのスイッチ
     //ue_sw.setup(PC3, GPIO::FLOATING);
@@ -157,37 +192,13 @@ void F405ControlBoard::IWDG_Setup(void)
 
 }
 
-void F405ControlBoard::setupInterface(void)
-{
-    //setupPeripheralで設定したペリフェラルを用いた機能の設定
-
-    //led = new Led[4];
-    //button = new Button[4];
-
-    //ユーザエンコーダクラス
-    //userEnc = new UserEncoder;
-
-    //キャラクタ液晶設定
-    //clcd.setup(ピン名);
-
-    //通信系
-    //コントローラ設定x2
-    //sixaxis1.setup(USART6);
-    //sixaxis2.setup(UART4);
-
-    //通信を何で使うか決める
-    //sixaxis = new SIXAXIS(&usart6);
-    //pc = new PC(&usart3);
-    //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
-}
-
 void F405ControlBoard::cycle(void)
 {
     //ウォッチドッグタイマ
     //IWDG_Reset();
 
     static uint16_t cnt = 0;
-    if(++cnt >= 10000)
+    if(++cnt >= 50000)
     {
         cnt = 0;
         ledPin[0].toggle();
