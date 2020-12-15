@@ -6,6 +6,7 @@
 F405ControlBoard F405ControlBoard::m_instance;
 
 GPIO ledPin[4];
+GPIO mco1;
 //GPIO buttonPin[4]
 //GPIO limitSwPin[4];
 //GPIO buzzerPin;
@@ -67,6 +68,8 @@ void F405ControlBoard::GPIO_Setup(void)
     ledPin[1].setup(PC8, GPIO::PUSHPULL);
     ledPin[2].setup(PA10, GPIO::PUSHPULL);
     ledPin[3].setup(PB3, GPIO::PUSHPULL);
+
+    mco1.setup(PA8, GPIO::OPENDRAIN_AF);
 
     //buttonPin[0].setup(PB12, GPIO::FLOATING);
     //buttonPin[1].setup(PB13, GPIO::FLOATING);

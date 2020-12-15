@@ -50,7 +50,8 @@ void RCC_Setup_168MHz(void)
     RCC->CR |= RCC_CR_HSEON;  //HSEON
     while((RCC->CR & RCC_CR_HSERDY) == 0);  //HSE動作待ち
     RCC->PLLCFGR = 0x04402A06;
-    RCC->CFGR = 0xC0009402;
+    //RCC->CFGR = 0xC0009402;
+    RCC->CFGR = 0xC0609402; //MCO1からPLLそのまま出力
     FLASH->ACR &= ~FLASH_ACR_LATENCY;  //FLASH読み込みの遅延時間設定
     FLASH->ACR |= FLASH_ACR_LATENCY_5WS;  //FLASH読み込みの遅延時間設定
 
