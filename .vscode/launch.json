@@ -1,0 +1,39 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "OpenOCD Debug",
+            "type": "gdb",
+            "request": "attach",
+            "executable": "build/F405ControlBoard_program.elf",
+            "target": ":3333",
+            "remote": true,
+            "autorun": [
+                "interrupt",
+                "monitor reset halt",
+                "monitor flash erase_sector",
+                "load",
+                "break main"
+            ],
+            "gdbpath": "/usr/bin/gdb",
+            //"program": "プログラム名を入力してください (例: ${workspaceFolder}/a.exe)",
+            //"args": [],
+            //"stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            //"environment": [],
+            //"externalConsole": false,
+            //"MIMode": "gdb",
+            //"miDebuggerPath": "/path/to/gdb",
+            //"setupCommands": [
+            //    {
+            //        "description": "gdb の再フォーマットを有効にする",
+            //        "text": "-enable-pretty-printing",
+            //        "ignoreFailures": true
+            //    }
+            //]
+        }
+    ]
+}

@@ -1,9 +1,10 @@
 #pragma once
 
-class USART
+class bxCAN
 {
 public:
 
 private:
 
 };
+

@@ -1,4 +1,5 @@
-#include "hardware/F405ControlBoard.hpp"
+#include "./hardware/F405ControlBoard.hpp"
+#include <stddef.h>
 //#include "machine.hpp"
 
 //TODO: 割り込み処理のRTOS化
@@ -6,8 +7,18 @@
 
 int main(void)
 {
+    GPIOA->ODR = 0xFFFFFFFF;
+    ledPin[0].write(1);
+    ledPin[1].write(1);
+    ledPin[2].write(1);
+    ledPin[3].write(1);
     //ペリフェラルセットアップ
     F405ControlBoard::getInstance()->setupPeripheral();
+
+    ledPin[0].write(1);
+    ledPin[1].write(1);
+    ledPin[2].write(1);
+    ledPin[3].write(1);
     //インタフェースセットアップ
     //controlBoard->setupInterface();
     //sixaxis3 = new Sixaxis(&usart4);
@@ -23,7 +34,7 @@ int main(void)
 
     while(1)
     {
-        F405ControlBoard::getInstance()->cycle();
+        //F405ControlBoard::getInstance()->cycle();
 
         //目標値反映
         //can送信、local反映
@@ -46,6 +57,8 @@ void interrupt_1ms(void)
 void interrupt_10ms(void)
 {
     //sensor::update();
+
+    //Machine::getInstance()->update();
 
 
     //目標値変更

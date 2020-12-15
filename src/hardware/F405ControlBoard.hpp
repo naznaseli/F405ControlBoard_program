@@ -1,12 +1,15 @@
 #pragma once
 #include <stddef.h>
+#include <stdint.h>
 #include "./peripheral/RCC.hpp"
-//#include "./peripheral/GPIO.hpp"
+#include "./peripheral/GPIO.hpp"
 //#include "./peripheral/USART.hpp"
 //#include "./peripheral/bxCAN.hpp"
 //#include "./peripheral/TIM.hpp"
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
+
+extern GPIO ledPin[4];
 
 
 //基板の機能、設定
@@ -18,8 +21,11 @@ class F405ControlBoard
 private:
     F405ControlBoard();
     ~F405ControlBoard(){};
+    static F405ControlBoard m_instance;
 public:
-    static F405ControlBoard* getInstance(){ return &m_instance; }
+    static F405ControlBoard* getInstance(void){
+        return &m_instance;
+    }
 
     //! setup
     void setupPeripheral(void);
@@ -35,9 +41,8 @@ public:
     void delay_ms(uint16_t ms);
 
 private:
-    static F405ControlBoard m_instance;
 
-    size_t m_elapsedTime;
+    size_t m_elapsedTime = 0;
     unsigned int m_delayCnt;
     //unsigned int m_buzzerCnt;
 

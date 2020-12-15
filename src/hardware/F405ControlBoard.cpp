@@ -5,7 +5,10 @@
 //シングルトンインスタンス
 F405ControlBoard F405ControlBoard::m_instance;
 
-//GPIO led[0], button[4], limitSw[4];
+GPIO ledPin[4];
+//GPIO buttonPin[4]
+//GPIO limitSwPin[4];
+//GPIO buzzerPin;
 //GPIO swdio, swclk;
 //USART usart1, usart2, usart3, uart4, uart5;
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
@@ -34,19 +37,19 @@ void F405ControlBoard::setupPeripheral(void)
     GPIO_Setup();
 
     //TIM設定
-    TIM_Setup();
-
-    //USART設定
-    USART_Setup();
-
-    //ADC設定
-    ADC_Setup();
-
-    //CAN設定
-    bxCAN_Setup();
-
-    //IWDG設定
-    IWDG_Setup();
+//    TIM_Setup();
+//
+//    //USART設定
+//    USART_Setup();
+//
+//    //ADC設定
+//    ADC_Setup();
+//
+//    //CAN設定
+//    bxCAN_Setup();
+//
+//    //IWDG設定
+//    IWDG_Setup();
 
 }
 
@@ -54,23 +57,24 @@ void F405ControlBoard::RCC_Setup(void)
 {
     //TODO: セットアップ関数中身実装
     //TODO: グローバル禁止？
-    RCC_Setup_72MHz();
+    //RCC_Setup_72MHz();
+    RCC_Setup_168MHz();
 }
 
 void F405ControlBoard::GPIO_Setup(void)
 {
-    //led[0].setup(PC9, GPIO::PUSHPULL);
-    //led[1].setup(PC8, GPIO::PUSHPULL);
-    //led[2].setup(PA10, GPIO::PUSHPULL);
-    //led[3].setup(PB3, GPIO::PUSHPULL);
+    ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
+    ledPin[1].setup(PC8, GPIO::PUSHPULL);
+    ledPin[2].setup(PA10, GPIO::PUSHPULL);
+    ledPin[3].setup(PB3, GPIO::PUSHPULL);
 
-    //button[0].setup(PB12, GPIO::FLOATING);
-    //button[1].setup(PB13, GPIO::FLOATING);
-    //button[2].setup(PB14, GPIO::FLOATING);
-    //button[3].setup(PB15, GPIO::FLOATING);
+    //buttonPin[0].setup(PB12, GPIO::FLOATING);
+    //buttonPin[1].setup(PB13, GPIO::FLOATING);
+    //buttonPin[2].setup(PB14, GPIO::FLOATING);
+    //buttonPin[3].setup(PB15, GPIO::FLOATING);
 
     //buzzer
-    //buzzer.setup(PB9, GPIO::PUSHPULL);
+    //buzzerPin.setup(PB9, GPIO::PUSHPULL);
 
     //ユーザエンコーダのスイッチ
     //ue_sw.setup(PC3, GPIO::FLOATING);
@@ -186,7 +190,7 @@ void F405ControlBoard::cycle(void)
     if(++cnt >= 10000)
     {
         cnt = 0;
-        //led0.toggle();
+        ledPin[0].toggle();
     }
 }
 
@@ -200,7 +204,7 @@ void F405ControlBoard::interrupt_1ms(void)
     }
     m_elapsedTime++;
     if(m_delayCnt) m_delayCnt--;
-    if(m_buzzerCnt) m_buzzerCnt--;
+    //if(m_buzzerCnt) m_buzzerCnt--;
 
     //ユーザエンコーダの読み取り
 
