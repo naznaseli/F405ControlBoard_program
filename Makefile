@@ -43,6 +43,7 @@ $(wildcard src/hardware/circuit/*.c) \
 $(wildcard src/hardware/circuit/function/*.c) \
 $(wildcard src/hardware/circuit/peripheral/*.c) \
 $(wildcard src/hardware/machine/parts/interface/*.c) \
+$(wildcard src/hardware/machine/parts/sensor/*.c) \
 $(wildcard src/hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/*.c)
 #$(wildcard src/software/*.c)
 
@@ -54,6 +55,7 @@ $(wildcard src/hardware/circuit/*.cpp) \
 $(wildcard src/hardware/circuit/function/*.cpp) \
 $(wildcard src/hardware/circuit/peripheral/*.cpp) \
 $(wildcard src/hardware/machine/parts/interface/*.cpp) \
+$(wildcard src/hardware/machine/parts/sensor/*.cpp) \
 $(wildcard src/hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/*.cpp)
 #$(wildcard src/software/*.cpp)
 

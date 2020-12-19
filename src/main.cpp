@@ -1,6 +1,7 @@
 #include "./hardware/circuit/F405ControlBoard.hpp"
 //#include "./hardware/circuit/function/delay.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/interface.hpp"
+#include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
 #include <stddef.h>
 //#include "machine.hpp"
 
@@ -13,9 +14,10 @@ int main(void)
 {
     //ペリフェラルセットアップ
     F405ControlBoard::getInstance()->setup();
-    //F405ControlBoard::getInstance()->setupInterface();
 
     interface::setup();
+    sensor::setup();
+    //actuator::setup();
 
     led[1].write(1);
     ////delay_ms(1000);
@@ -23,8 +25,6 @@ int main(void)
     buzzer.beep(1000);
     led[1].write(0);
 
-    //sixaxis3 = new Sixaxis(&usart4);
-    //mpu6050 = new Gyro(&usart3, IMU_TYPE_MPU6050);
 
     while(1)
     {
@@ -35,10 +35,14 @@ int main(void)
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
 
+        if(sensor::limitSw[0].read()) led[0].write(1);
+        else led[0].write(0);
+        if(sensor::limitSw[1].read()) led[1].write(1);
+        else led[1].write(0);
+
         //目標値反映
         //can送信、local反映
         //actuator::update();
-
     }
 }
 

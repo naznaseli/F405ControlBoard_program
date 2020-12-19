@@ -5,14 +5,18 @@
 //シングルトンインスタンス
 F405ControlBoard F405ControlBoard::m_instance;
 
+#define GPIO_MODE   1
+
 GPIO ledPin[4];
 GPIO buttonPin[4];
 GPIO buzzerPin;
+GPIO limitSwPin[4];
 //GPIO swdio, swclk;
 //GPIO limitSwPin[4];
 //USART usart1, usart2, usart3, uart4, uart5;
 TIM tim6, tim7;
 TIM tim9, tim10;    //代わり
+TIM tim3, tim4;     //エンコーダ
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
 
@@ -134,11 +138,12 @@ void F405ControlBoard::GPIO_Setup(void)
     //lcd_e.setup(PC1, GPIO::PUSHPULL);
     //lcd_rs.setup(PC2, GPIO::PUSHPULL);
 
-    //ADC or IOで条件分岐
-    //limitSw[0].setup(PC4, GPIO::INPUT_PU);
-    //limitSw[1].setup(PC5, GPIO::INPUT_PU);
-    //limitSw[2].setup(PB0, GPIO::INPUT_PU);
-    //limitSw[3].setup(PB1, GPIO::INPUT_PU);
+#if GPIO_MODE
+    limitSwPin[0].setup(PC4, GPIO::INPUT_PU);
+    limitSwPin[1].setup(PC5, GPIO::INPUT_PU);
+    limitSwPin[2].setup(PB0, GPIO::INPUT_PU);
+    limitSwPin[3].setup(PB1, GPIO::INPUT_PU);
+#endif
 
     //swdio, swclk
     //swdio.setup(PA13, GPIO::);
@@ -168,21 +173,16 @@ void F405ControlBoard::TIM_Setup(void)
     tim10.setup(TIM10, 12, 1000000);
     tim10.enableCount();
 
-    //エンコーダ0
-    //tim4
-
-    //エンコーダ1
-    //tim3
-
-    //エンコーダ2
-    //tim8
-
-    //エンコーダ3
-    //tim5
+    //エンコーダ
+    //tim4.setup(TIM4, );
+    //tim3.setup(TIM3, );
+    //tim8.setup(TIM8, );
+    //tim5.setup(TIM5, );
 
     //ユーザエンコーダ
-    //tim10, tim13, tim14
-
+    //tim10.setup(TIM10, );
+    //tim13.setup(TIM13, );
+    //tim14.setup(TIM14, );
 }
 
 void F405ControlBoard::USART_Setup(void)
@@ -208,6 +208,10 @@ void F405ControlBoard::USART_Setup(void)
 void F405ControlBoard::ADC_Setup(void)
 {
     //pc4, pc5, pb0, pb1
+    //adcPin[0].setup(PC4, );
+    //adcPin[1].setup(PC5, );
+    //adcPin[2].setup(PB0, );
+    //adcPin[3].setup(PB1, );
     
 }
 

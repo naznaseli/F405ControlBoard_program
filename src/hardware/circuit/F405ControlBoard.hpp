@@ -9,14 +9,15 @@
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
 
+#define ONBOARD_LED_NUM     4
+#define ONBOARD_BUTTON_NUM  4
+#define ONBOARD_LIMITSW_NUM 4
 
-extern GPIO ledPin[4];
-extern GPIO buttonPin[4];
+extern GPIO ledPin[ONBOARD_LED_NUM];
+extern GPIO buttonPin[ONBOARD_BUTTON_NUM];
 extern GPIO buzzerPin;
-
-//extern Led led[4];
-//extern Button button[4];
-//extern Buzzer buzzer;
+extern GPIO limitSwPin[ONBOARD_LIMITSW_NUM];
+extern TIM tim3, tim4;
 
 //基板の機能、設定
 //センサアクチュエータなし？

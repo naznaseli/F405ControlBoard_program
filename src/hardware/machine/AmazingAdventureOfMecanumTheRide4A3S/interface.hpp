@@ -11,9 +11,6 @@
 
 namespace interface
 {
-void setup(void);
-//void interrupt_1ms(void);
-
 extern Led led[LED_NUM];
 extern Button button[BUTTON_NUM];
 extern Buzzer buzzer;
@@ -21,4 +18,7 @@ extern Buzzer buzzer;
 //CharacterLcd clcd;
 //Serial* pc;
 //Controller* sixaxis3;
+
+void setup(void);
+//void interrupt_1ms(void);
 }//namespace
