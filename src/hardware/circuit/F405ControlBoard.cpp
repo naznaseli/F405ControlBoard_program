@@ -2,9 +2,6 @@
 //#include "./parts/sensor.hpp"
 //#include "./parts/actuator.hpp"
 
-//シングルトンインスタンス
-//F405ControlBoard F405ControlBoard::m_instance;
-
 #define GPIO_MODE   1
 
 namespace F405ControlBoard
@@ -13,6 +10,7 @@ GPIO ledPin[4];
 GPIO buttonPin[4];
 GPIO buzzerPin;
 GPIO limitSwPin[4];
+GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 //GPIO swdio, swclk;
 //GPIO limitSwPin[4];
 //USART usart1, usart2, usart3, uart4, uart5;
@@ -22,17 +20,10 @@ TIM tim3, tim4;     //エンコーダ
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
 
-//F405ControlBoard::F405ControlBoard()
-//{
-//    m_elapsedTime = 0;
-//    m_delayCnt = 0;
-//}
-
 //size_t m_elapsedTime = 0;
 uint32_t m_delayCnt = 0;
-}
 
-void F405ControlBoard::setup(void)
+void setup(void)
 {
     //クロック設定
     RCC_Setup();
@@ -56,7 +47,7 @@ void F405ControlBoard::setup(void)
     IWDG_Setup();
 }
 
-void F405ControlBoard::RCC_Setup(void)
+void RCC_Setup(void)
 {
     //TODO: セットアップ関数中身実装
     //TODO: グローバル禁止？
@@ -75,7 +66,7 @@ void F405ControlBoard::RCC_Setup(void)
 
 }
 
-void F405ControlBoard::GPIO_Setup(void)
+void GPIO_Setup(void)
 {
     ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     //ledPin[0].setup(PC9, GPIO::PUSHPULL_AF, GPIO::SUPERHIGH_SPEED);   //for MCO2
@@ -94,12 +85,12 @@ void F405ControlBoard::GPIO_Setup(void)
     //ue_a.setup(PA4, GPIO::FLOATING);
     //ue_b.setup(PA5, GPIO::FLOATING);
 
-    //lcd_db7.setup(PC14, GPIO::PUSHPULL);
-    //lcd_db6.setup(PC13, GPIO::PUSHPULL);
-    //lcd_db5.setup(PC0, GPIO::PUSHPULL);
-    //lcd_db4.setup(PC15, GPIO::PUSHPULL);
-    //lcd_e.setup(PC1, GPIO::PUSHPULL);
-    //lcd_rs.setup(PC2, GPIO::PUSHPULL);
+    lcd_rs.setup(PC2, GPIO::PUSHPULL);
+    lcd_e.setup(PC1, GPIO::PUSHPULL);
+    lcd_db4.setup(PC15, GPIO::PUSHPULL);
+    lcd_db5.setup(PC0, GPIO::PUSHPULL);
+    lcd_db6.setup(PC13, GPIO::PUSHPULL);
+    lcd_db7.setup(PC14, GPIO::PUSHPULL);
 
 #if GPIO_MODE
     limitSwPin[0].setup(PC4, GPIO::INPUT_PU);
@@ -114,7 +105,7 @@ void F405ControlBoard::GPIO_Setup(void)
 
 }
 
-void F405ControlBoard::TIM_Setup(void)
+void TIM_Setup(void)
 {
     int apb1 = clock::getAPB1TimerClock();
     int apb2 = clock::getAPB2TimerClock();
@@ -148,7 +139,7 @@ void F405ControlBoard::TIM_Setup(void)
     //tim14.setup(TIM14, );
 }
 
-void F405ControlBoard::USART_Setup(void)
+void USART_Setup(void)
 {
 
     //microUSB
@@ -168,7 +159,7 @@ void F405ControlBoard::USART_Setup(void)
 
 }
 
-void F405ControlBoard::ADC_Setup(void)
+void ADC_Setup(void)
 {
 #if GPIO_MODE
 #else
@@ -180,18 +171,18 @@ void F405ControlBoard::ADC_Setup(void)
     
 }
 
-void F405ControlBoard::bxCAN_Setup(void)
+void bxCAN_Setup(void)
 {
     //can1.setup(CAN1, PA11, PA12, 500);
 
 }
 
-void F405ControlBoard::IWDG_Setup(void)
+void IWDG_Setup(void)
 {
 
 }
 
-void F405ControlBoard::cycle(void)
+void cycle(void)
 {
     //ウォッチドッグタイマ
     //IWDG_Reset();
@@ -204,7 +195,7 @@ void F405ControlBoard::cycle(void)
     //}
 }
 
-void F405ControlBoard::interrupt_1ms(void)
+void interrupt_1ms(void)
 {
     //m_elapsedTime++;
     //if(m_delayCnt) m_delayCnt--;
@@ -217,7 +208,7 @@ void F405ControlBoard::interrupt_1ms(void)
     //}
 }
 
-void F405ControlBoard::interrupt_10ms(void)
+void interrupt_10ms(void)
 {
     //static int cnt = 0;
     //if(++cnt >= 100)
@@ -227,12 +218,12 @@ void F405ControlBoard::interrupt_10ms(void)
     //}
 }
 
-//size_t F405ControlBoard::millis(void)
+//size_t millis(void)
 //{
 //    return m_elapsedTime;
 //}
 
-void F405ControlBoard::delay_us(uint32_t time)
+void delay_us(uint32_t time)
 {
     while(time--)
     {
@@ -252,9 +243,11 @@ void F405ControlBoard::delay_us(uint32_t time)
     }
 }
 
-void F405ControlBoard::delay_ms(uint32_t time)
+void delay_ms(uint32_t time)
 {
     //m_delayCnt = time;
     //while(m_delayCnt);
     delay_us(time*1000);
 }
+
+}//namespace

@@ -19,22 +19,13 @@ extern GPIO ledPin[ONBOARD_LED_NUM];
 extern GPIO buttonPin[ONBOARD_BUTTON_NUM];
 extern GPIO buzzerPin;
 extern GPIO limitSwPin[ONBOARD_LIMITSW_NUM];
+extern GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 extern TIM tim3, tim4;
 
 //基板の機能、設定
 //センサアクチュエータなし？
 //大会で使用するマシン構成(センサアクチュエータの数)とは切り離す？(使用する全センサアクチュエータ)>(この基板で読み取るセンサアクチュエータ)
-//基板1枚に対して1つだけ→シングルトン
-//class F405ControlBoard
-//{
-//private:
-//    F405ControlBoard();
-//    ~F405ControlBoard(){};
-//    static F405ControlBoard m_instance;
-//public:
-//    static F405ControlBoard* getInstance(void){
-//        return &m_instance;
-//    }
+
 //! setup
 void setup(void);
 

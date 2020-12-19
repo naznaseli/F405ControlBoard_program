@@ -7,6 +7,7 @@ namespace interface
 Led led[4];
 Button button[4];
 Buzzer buzzer;
+CharacterLcd clcd;
 
 void setup(void)
 {
@@ -25,7 +26,7 @@ void setup(void)
     //userEnc = new UserEncoder;
 
     //キャラクタ液晶設定
-    //clcd.setup(&lcd_rs, &lcd_e, &lcd_db4, &lcd_db5, &lcd_db6, &lcd_db7);
+    clcd.setup(&lcd_rs, &lcd_e, &lcd_db4, &lcd_db5, &lcd_db6, &lcd_db7);
 
     //通信系
     //コントローラ設定x2

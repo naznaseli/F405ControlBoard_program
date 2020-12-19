@@ -22,14 +22,6 @@ void Buzzer::beep(uint16_t time)
 {
     m_gpio->write(1);
     F405ControlBoard::delay_ms(time);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
-    //for(int i = 0; i < 10000; i++);
     m_gpio->write(0);
 }
 

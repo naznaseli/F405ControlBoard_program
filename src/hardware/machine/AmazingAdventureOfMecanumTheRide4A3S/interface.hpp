@@ -14,6 +14,7 @@ namespace interface
 extern Led led[LED_NUM];
 extern Button button[BUTTON_NUM];
 extern Buzzer buzzer;
+extern CharacterLcd clcd;
 //UserEncoder userEncoder;
 //CharacterLcd clcd;
 //Serial* pc;

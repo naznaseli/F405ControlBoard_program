@@ -22,6 +22,9 @@ int main(void)
     F405ControlBoard::delay_ms(500);
     led[1].write(0);
 
+    clcd.cursor(0, 0);
+    clcd.printf("test");
+
     buzzer.beep(30);
 
     while(1)
@@ -32,11 +35,6 @@ int main(void)
         else led[0].write(0);
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
-
-        //if(sensor::limitSw[0].read()) led[0].write(1);
-        //else led[0].write(0);
-        //if(sensor::limitSw[1].read()) led[1].write(1);
-        //else led[1].write(0);
 
         //目標値反映
         //can送信、local反映
