@@ -111,7 +111,7 @@ void F405ControlBoard::RCC_Setup(void)
 void F405ControlBoard::GPIO_Setup(void)
 {
     ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
-    //ledPin[0].setup(PC9, GPIO::PUSHPULL_AF, GPIO::SUPERHIGH_SPEED);
+    //ledPin[0].setup(PC9, GPIO::PUSHPULL_AF, GPIO::SUPERHIGH_SPEED);   //for MCO2
     ledPin[1].setup(PC8, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     ledPin[2].setup(PA10, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     ledPin[3].setup(PB3, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
@@ -121,15 +121,12 @@ void F405ControlBoard::GPIO_Setup(void)
     buttonPin[2].setup(PB14, GPIO::FLOATING);
     buttonPin[3].setup(PB15, GPIO::FLOATING);
 
-    //buzzer
     buzzerPin.setup(PB9, GPIO::PUSHPULL);
 
-    //ユーザエンコーダのスイッチ
     //ue_sw.setup(PC3, GPIO::FLOATING);
     //ue_a.setup(PA4, GPIO::FLOATING);
     //ue_b.setup(PA5, GPIO::FLOATING);
 
-    //lcd
     //lcd_db7.setup(PC14, GPIO::PUSHPULL);
     //lcd_db6.setup(PC13, GPIO::PUSHPULL);
     //lcd_db5.setup(PC0, GPIO::PUSHPULL);
