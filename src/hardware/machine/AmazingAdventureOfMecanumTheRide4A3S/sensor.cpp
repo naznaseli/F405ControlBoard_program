@@ -1,5 +1,7 @@
 #include "sensor.hpp"
 
+using namespace F405ControlBoard;
+
 namespace sensor
 {
 Encoder encoder[ENCODER_NUM];

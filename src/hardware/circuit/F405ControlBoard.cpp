@@ -3,10 +3,12 @@
 //#include "./parts/actuator.hpp"
 
 //シングルトンインスタンス
-F405ControlBoard F405ControlBoard::m_instance;
+//F405ControlBoard F405ControlBoard::m_instance;
 
 #define GPIO_MODE   1
 
+namespace F405ControlBoard
+{
 GPIO ledPin[4];
 GPIO buttonPin[4];
 GPIO buzzerPin;
@@ -20,21 +22,14 @@ TIM tim3, tim4;     //エンコーダ
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
 
-//Led led[4];
-//Button button[4];
-//Buzzer buzzer;
-//Clcd clcd;
-//
-//PC* pc;
-//
-//Controller* sixaxis3;
-//Imu* r1070;
-//Imu* mpu6050;
+//F405ControlBoard::F405ControlBoard()
+//{
+//    m_elapsedTime = 0;
+//    m_delayCnt = 0;
+//}
 
-F405ControlBoard::F405ControlBoard()
-{
-    m_elapsedTime = 0;
-    m_delayCnt = 0;
+//size_t m_elapsedTime = 0;
+uint32_t m_delayCnt = 0;
 }
 
 void F405ControlBoard::setup(void)
@@ -59,39 +54,7 @@ void F405ControlBoard::setup(void)
 
     //IWDG設定
     IWDG_Setup();
-
 }
-
-//void F405ControlBoard::setupInterface(void)
-//{
-//    led[0].setup(&ledPin[0]);
-//    led[1].setup(&ledPin[1]);
-//    led[2].setup(&ledPin[2]);
-//    led[3].setup(&ledPin[3]);
-//    button[0].setup(&buttonPin[0], -1);
-//    button[1].setup(&buttonPin[1], -1);
-//    button[2].setup(&buttonPin[2], -1);
-//    button[3].setup(&buttonPin[3], -1);
-//    buzzer.setup(&buzzerPin);
-//
-//    //ユーザエンコーダクラス
-//    //userEnc = new UserEncoder;
-//
-//    //キャラクタ液晶設定
-//    //clcd.setup(ピン名);
-//
-//    //通信系
-//    //コントローラ設定x2
-//    //sixaxis1.setup(USART6);
-//    //sixaxis2.setup(UART4);
-//
-//    //通信を何で使うか決める
-//    //sixaxis = new SIXAXIS(&usart6);
-//    //pc = new PC(&usart3);
-//    //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
-//}
-
-
 
 void F405ControlBoard::RCC_Setup(void)
 {
@@ -207,11 +170,13 @@ void F405ControlBoard::USART_Setup(void)
 
 void F405ControlBoard::ADC_Setup(void)
 {
-    //pc4, pc5, pb0, pb1
+#if GPIO_MODE
+#else
     //adcPin[0].setup(PC4, );
     //adcPin[1].setup(PC5, );
     //adcPin[2].setup(PB0, );
     //adcPin[3].setup(PB1, );
+#endif
     
 }
 
@@ -241,41 +206,55 @@ void F405ControlBoard::cycle(void)
 
 void F405ControlBoard::interrupt_1ms(void)
 {
-    //static int cnt = 0;
-    //if(++cnt >= 100)
-    //{
-    //    //led1.toggle();
-    //    ;
-    //}
-    m_elapsedTime++;
-    if(m_delayCnt > 0) m_delayCnt--;
+    //m_elapsedTime++;
+    if(m_delayCnt) m_delayCnt--;
+
+    static int cnt = 0;
+    if(++cnt >= 1000)
+    {
+        cnt = 0;
+        ledPin[0].toggle();
+    }
 }
 
 void F405ControlBoard::interrupt_10ms(void)
 {
-    static int cnt = 0;
-    if(++cnt >= 100)
-    {
-        //led2.toggle();
-        ;
-    }
-}
-
-size_t F405ControlBoard::millis(void)
-{
-    return m_elapsedTime;
-}
-
-void F405ControlBoard::delay_us(uint16_t time)
-{
-    //while(us--)
+    //static int cnt = 0;
+    //if(++cnt >= 100)
     //{
-    //    asm("NOP");
+    //    //led2.toggle();
+    //    ;
     //}
 }
 
-void F405ControlBoard::delay_ms(uint16_t time)
+//size_t F405ControlBoard::millis(void)
+//{
+//    return m_elapsedTime;
+//}
+
+void F405ControlBoard::delay_us(uint32_t time)
 {
-    m_delayCnt = time;
-    while(m_delayCnt);
+    while(time--)
+    {
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
+        asm("NOP");
+    }
+}
+
+void F405ControlBoard::delay_ms(uint32_t time)
+{
+    //m_delayCnt = time;
+    //while(m_delayCnt);
+    delay_us(time*1000);
 }

@@ -1,5 +1,7 @@
 #include "interface.hpp"
 
+using namespace F405ControlBoard;
+
 namespace interface
 {
 Led led[4];
