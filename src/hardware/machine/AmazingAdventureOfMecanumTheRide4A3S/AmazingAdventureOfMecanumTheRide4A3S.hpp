@@ -13,14 +13,14 @@ public:
     void setup(void);
     void update(void);
 
-//:******************************
+    //:******************************
     //! メカユニット
     //:******************************
     //mechanismのインスタンス作成
     //特殊なメカユニットに対しては必要に応じて継承
 
     //! 足回りメカナム
-    //Mecanum* mecanum;
+    //UnderCarriage* mecanum;
 
     //! 接地エンコーダ
     //Odometri* odometri;

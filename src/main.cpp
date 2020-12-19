@@ -3,7 +3,6 @@
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/interface.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
 #include <stddef.h>
-//#include "machine.hpp"
 
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
@@ -24,7 +23,6 @@ int main(void)
     //F405ControlBoard::getInstance()->delay_ms(1000);
     buzzer.beep(1000);
     led[1].write(0);
-
 
     while(1)
     {
