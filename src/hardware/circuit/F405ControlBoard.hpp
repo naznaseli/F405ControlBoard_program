@@ -3,19 +3,22 @@
 #include <stdint.h>
 #include "./peripheral/RCC.hpp"
 #include "./peripheral/GPIO.hpp"
+#include "./peripheral/TIM.hpp"
 //#include "./peripheral/USART.hpp"
 //#include "./peripheral/bxCAN.hpp"
-//#include "./peripheral/TIM.hpp"
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
 
-#include "./parts/circuit/led.hpp"
-#include "./parts/circuit/button.hpp"
-#include "./parts/circuit/buzzer.hpp"
+#include "../parts/circuit/led.hpp"
+#include "../parts/circuit/button.hpp"
+#include "../parts/circuit/buzzer.hpp"
 
-extern Led led[4];
-extern Button button[4];
-extern Buzzer buzzer;
+extern GPIO ledPin[4];
+extern GPIO buttonPin[4];
+
+//extern Led led[4];
+//extern Button button[4];
+//extern Buzzer buzzer;
 
 //基板の機能、設定
 //センサアクチュエータなし？
@@ -33,8 +36,8 @@ public:
     }
 
     //! setup
-    void setupPeripheral(void);
-    void setupInterface(void);
+    void setup(void);
+    //void setupInterface(void);
 
     //! 周期関数
     void cycle(void);

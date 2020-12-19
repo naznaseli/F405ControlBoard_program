@@ -11,12 +11,14 @@ GPIO buttonPin[4];
 GPIO buzzerPin;
 //GPIO swdio, swclk;
 //USART usart1, usart2, usart3, uart4, uart5;
+TIM tim6, tim7;
+TIM tim9, tim10;    //代わり
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
 
-Led led[4];
-Button button[4];
-Buzzer buzzer;
+//Led led[4];
+//Button button[4];
+//Buzzer buzzer;
 //Clcd clcd;
 //
 //PC* pc;
@@ -32,7 +34,7 @@ F405ControlBoard::F405ControlBoard()
     //m_buzzerCnt = 0;
 }
 
-void F405ControlBoard::setupPeripheral(void)
+void F405ControlBoard::setup(void)
 {
     //クロック設定
     RCC_Setup();
@@ -41,50 +43,50 @@ void F405ControlBoard::setupPeripheral(void)
     GPIO_Setup();
 
     //TIM設定
-//    TIM_Setup();
-//
-//    //USART設定
-//    USART_Setup();
-//
-//    //ADC設定
-//    ADC_Setup();
-//
-//    //CAN設定
-//    bxCAN_Setup();
-//
-//    //IWDG設定
-//    IWDG_Setup();
+    TIM_Setup();
+
+    //USART設定
+    USART_Setup();
+
+    //ADC設定
+    ADC_Setup();
+
+    //CAN設定
+    bxCAN_Setup();
+
+    //IWDG設定
+    IWDG_Setup();
 
 }
 
-void F405ControlBoard::setupInterface(void)
-{
-    led[0].setup(&ledPin[0]);
-    led[1].setup(&ledPin[1]);
-    led[2].setup(&ledPin[2]);
-    led[3].setup(&ledPin[3]);
-    button[0].setup(&buttonPin[0], -1);
-    button[1].setup(&buttonPin[1], -1);
-    button[2].setup(&buttonPin[2], -1);
-    button[3].setup(&buttonPin[3], -1);
-    buzzer.setup(&buzzerPin);
-
-    //ユーザエンコーダクラス
-    //userEnc = new UserEncoder;
-
-    //キャラクタ液晶設定
-    //clcd.setup(ピン名);
-
-    //通信系
-    //コントローラ設定x2
-    //sixaxis1.setup(USART6);
-    //sixaxis2.setup(UART4);
-
-    //通信を何で使うか決める
-    //sixaxis = new SIXAXIS(&usart6);
-    //pc = new PC(&usart3);
-    //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
-}
+//void F405ControlBoard::setupInterface(void)
+//{
+//    led[0].setup(&ledPin[0]);
+//    led[1].setup(&ledPin[1]);
+//    led[2].setup(&ledPin[2]);
+//    led[3].setup(&ledPin[3]);
+//    button[0].setup(&buttonPin[0], -1);
+//    button[1].setup(&buttonPin[1], -1);
+//    button[2].setup(&buttonPin[2], -1);
+//    button[3].setup(&buttonPin[3], -1);
+//    buzzer.setup(&buzzerPin);
+//
+//    //ユーザエンコーダクラス
+//    //userEnc = new UserEncoder;
+//
+//    //キャラクタ液晶設定
+//    //clcd.setup(ピン名);
+//
+//    //通信系
+//    //コントローラ設定x2
+//    //sixaxis1.setup(USART6);
+//    //sixaxis2.setup(UART4);
+//
+//    //通信を何で使うか決める
+//    //sixaxis = new SIXAXIS(&usart6);
+//    //pc = new PC(&usart3);
+//    //r1070 = new IMU(&usart1, IMU_TYPE_R1070);
+//}
 
 
 
@@ -92,13 +94,25 @@ void F405ControlBoard::RCC_Setup(void)
 {
     //TODO: セットアップ関数中身実装
     //TODO: グローバル禁止？
-    //RCC_Setup_72MHz();
-    RCC_Setup_168MHz();
+    clock::setup_168MHz_HSE();
+    //clock::setup_168MHz_HSI();
+
+    //clock::setPLLM(6);
+    //clock::setPLLN(168);
+    //clock::setPLLP(2);
+    //clock::setPLLQ(4);
+    //clock::setAHBPrescaler(1);
+    //clock::setAPB1Prescaler(4);
+    //clock::setAPB2Prescaler(2);
+    //clock::setPowerVoltage(3.3);
+    //clock::setup_PLLCLK_HSE();
+
 }
 
 void F405ControlBoard::GPIO_Setup(void)
 {
-    ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
+    //ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
+    ledPin[0].setup(PC9, GPIO::PUSHPULL_AF, GPIO::SUPERHIGH_SPEED);
     ledPin[1].setup(PC8, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     ledPin[2].setup(PA10, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     ledPin[3].setup(PB3, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
@@ -138,6 +152,26 @@ void F405ControlBoard::GPIO_Setup(void)
 
 void F405ControlBoard::TIM_Setup(void)
 {
+    int apb1 = clock::getAPB1TimerClock();
+    int apb2 = clock::getAPB2TimerClock();
+
+    //タイマ
+    tim6.setSourceFreq(apb1);
+    tim6.setup(TIM6, 12, 1000000);
+    tim6.enableCount();
+
+    tim7.setSourceFreq(apb1);
+    tim7.setup(TIM7, 12, 1000000);
+    tim7.enableCount();
+
+    tim9.setSourceFreq(apb2);
+    tim9.setup(TIM9, 12, 1000000);
+    tim9.enableCount();
+
+    tim10.setSourceFreq(apb2);
+    tim10.setup(TIM10, 12, 1000000);
+    tim10.enableCount();
+
     //エンコーダ0
     //tim4
 
@@ -197,12 +231,12 @@ void F405ControlBoard::cycle(void)
     //ウォッチドッグタイマ
     //IWDG_Reset();
 
-    static uint16_t cnt = 0;
-    if(++cnt >= 50000)
-    {
-        cnt = 0;
-        ledPin[0].toggle();
-    }
+    //static uint16_t cnt = 0;
+    //if(++cnt >= 50000)
+    //{
+    //    cnt = 0;
+    //    ledPin[0].toggle();
+    //}
 }
 
 void F405ControlBoard::interrupt_1ms(void)

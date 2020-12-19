@@ -1,6 +1,6 @@
 #pragma once
 #include "../parts.hpp"
-#include "../../peripheral/GPIO.hpp"
+#include "../../circuit/peripheral/GPIO.hpp"
 #include <stdint.h>
 
 class Buzzer

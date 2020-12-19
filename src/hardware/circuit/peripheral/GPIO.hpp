@@ -197,7 +197,7 @@ public:
         SUPERHIGH_SPEED 
     }OutputSpeed;
 
-    GPIO(void){};
+    GPIO(){};
     GPIO(GPIO_TypeDef* gpio, uint8_t pin, PinMode pinMode);
     GPIO(GPIO_TypeDef* gpio, uint8_t pin, PinMode pinMode, OutputSpeed outputSpeed);
 

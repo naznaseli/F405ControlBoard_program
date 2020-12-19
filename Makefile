@@ -6,7 +6,7 @@
 # Generic Makefile (based on gcc)
 #
 # ChangeLog :
-#	2017-02-10 - Several enhancements + project update mode
+#   2017-02-10 - Several enhancements + project update mode
 #   2015-07-22 - first version
 # ------------------------------------------------
 
@@ -39,7 +39,8 @@ C_SOURCES =  \
 Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
 $(wildcard src/*.c) \
 $(wildcard src/hardware/*.c) \
-$(wildcard src/hardware/peripheral/*.c) \
+$(wildcard src/hardware/circuit/*.c) \
+$(wildcard src/hardware/circuit/peripheral/*.c) \
 $(wildcard src/hardware/parts/circuit/*.c)
 #$(wildcard src/software/*.c)
 
@@ -47,7 +48,8 @@ $(wildcard src/hardware/parts/circuit/*.c)
 CPP_SOURCES = \
 $(wildcard src/*.cpp) \
 $(wildcard src/hardware/*.cpp) \
-$(wildcard src/hardware/peripheral/*.cpp) \
+$(wildcard src/hardware/circuit/*.cpp) \
+$(wildcard src/hardware/circuit/peripheral/*.cpp) \
 $(wildcard src/hardware/parts/circuit/*.cpp)
 #$(wildcard src/software/*.cpp)
 
@@ -178,10 +180,10 @@ $(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	$(HEX) $< $@
 	
 $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
-	$(BIN) $< $@	
-	
+	$(BIN) $< $@
+
 $(BUILD_DIR):
-	mkdir $@		
+	mkdir $@
 
 #######################################
 # clean up
