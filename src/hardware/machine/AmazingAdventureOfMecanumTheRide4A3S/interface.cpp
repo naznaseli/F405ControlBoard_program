@@ -2,8 +2,13 @@
 
 namespace interface
 {
+Led led[4];
+Button button[4];
+Buzzer buzzer;
+
 void setup(void)
 {
+    //led = new Led[4];
     led[0].setup(&ledPin[0]);
     led[1].setup(&ledPin[1]);
     led[2].setup(&ledPin[2]);
@@ -29,4 +34,9 @@ void setup(void)
     //sixaxis3 = new Controller(&usart6);
     //pc = new PC(&usart3);
 }
+
+//void interrupt_1ms(void)
+//{
+//}
+
 }//namespace

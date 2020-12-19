@@ -6,15 +6,19 @@
 #include "../parts/interface/user_encoder.hpp"
 #include "../parts/interface/clcd.hpp"
 
+#define LED_NUM 4
+#define BUTTON_NUM 4
+
 namespace interface
 {
 void setup(void);
+//void interrupt_1ms(void);
 
-Led led[4];
-Button button[4];
-Buzzer buzzer;
+extern Led led[LED_NUM];
+extern Button button[BUTTON_NUM];
+extern Buzzer buzzer;
 //UserEncoder userEncoder;
 //CharacterLcd clcd;
 //Serial* pc;
 //Controller* sixaxis3;
-}
+}//namespace

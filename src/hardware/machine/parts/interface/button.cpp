@@ -1,8 +1,14 @@
 #include "button.hpp"
+#include <stdio.h>
 
 Button::Button(GPIO* gpio, int sign)
 {
     setup(gpio, sign);
+}
+
+Button::~Button()
+{
+    m_gpio = NULL;
 }
 
 void Button::setup(GPIO* gpio, int sign)

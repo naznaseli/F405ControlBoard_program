@@ -17,9 +17,19 @@ void Buzzer::setup(GPIO* gpio)
     m_gpio = gpio;
 }
 
-void Buzzer::beep(uint16_t beepTime)
+void Buzzer::beep(uint16_t time)
 {
-    m_beepTime = beepTime;
+    m_gpio->write(1);
+    //delay_ms(time);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    for(int i = 0; i < 10000; i++);
+    m_gpio->write(0);
 }
 
 void Buzzer::write(int val)

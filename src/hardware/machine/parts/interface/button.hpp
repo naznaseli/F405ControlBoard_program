@@ -6,7 +6,7 @@ class Button
 public:
     Button(){};
     Button(GPIO* gpio, int sign = 1);
-    ~Button(){};
+    ~Button();
     void setup(GPIO* gpio, int sign = 1);
 
     uint8_t read(void);

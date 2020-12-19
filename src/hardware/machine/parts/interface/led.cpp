@@ -1,9 +1,15 @@
 #include "led.hpp"
+#include <stdio.h>
 
  Led::Led(GPIO* gpio)
  {
      setup(gpio);
  }
+
+Led::~Led()
+{
+    m_gpio = NULL;
+}
 
 void Led::setup(GPIO* gpio, int sign)
 {
@@ -44,4 +50,9 @@ void Led::turnOff(void)
     default:
         break;
     }
+}
+
+void Led::toggle(void)
+{
+    m_gpio->toggle();
 }

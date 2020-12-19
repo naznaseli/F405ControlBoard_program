@@ -10,7 +10,7 @@ class Led
 public:
     Led(){};
     Led(GPIO* gpio);
-    ~Led(){};
+    ~Led();
 
     //void setup(GPIO* gpio);
     void setup(GPIO* gpio, int sign = 1);
