@@ -1,31 +1,31 @@
 #include "GPIO.hpp"
 
-GPIO::GPIO(GPIO_TypeDef* gpio, uint8_t pin, PinMode pinMode)
+GPIO::GPIO(GPIO_TypeDef* GPIOx, uint8_t pin, PinMode pinMode)
 {
-    setup(gpio, pin, pinMode);
+    setup(GPIOx, pin, pinMode);
 }
 
-GPIO::GPIO(GPIO_TypeDef* gpio, uint8_t pin, PinMode pinMode, OutputSpeed outputSpeed)
+GPIO::GPIO(GPIO_TypeDef* GPIOx, uint8_t pin, PinMode pinMode, OutputSpeed outputSpeed)
 {
-    setup(gpio, pin, pinMode, outputSpeed);
+    setup(GPIOx, pin, pinMode, outputSpeed);
 }
 
-void GPIO::setup(GPIO_TypeDef* gpio, uint8_t pin, PinMode pinMode)
+void GPIO::setup(GPIO_TypeDef* GPIOx, uint8_t pin, PinMode pinMode)
 {
-    if(gpio==GPIOA || gpio==GPIOB || gpio==GPIOC || gpio==GPIOD ||
-       gpio==GPIOE || gpio==GPIOF || gpio==GPIOG || gpio==GPIOH)
+    if(GPIOx==GPIOA || GPIOx==GPIOB || GPIOx==GPIOC || GPIOx==GPIOD ||
+       GPIOx==GPIOE || GPIOx==GPIOF || GPIOx==GPIOG || GPIOx==GPIOH)
     {
-        if(pin>0 || pin>15) return;
+        if(pin<0 || pin>15) return;
     }
-    else if(gpio==GPIOI){
-        if(pin>0 || pin>11) return;
+    else if(GPIOx==GPIOI){
+        if(pin<0 || pin>11) return;
     }
     else
     {
         return;
     }
 
-    m_GPIOx = gpio;
+    m_GPIOx = GPIOx;
     m_pin = pin;
 
     //clock enable

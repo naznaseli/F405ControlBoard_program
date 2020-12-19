@@ -1,13 +1,17 @@
 #pragma once
-#include "GPIO.hpp"
+#include "../../peripheral/GPIO.hpp"
 
 class Button
 {
 public:
-    Button(GPIO& gpio);
+    Button(){};
+    Button(GPIO* gpio, int sign = 1);
     ~Button(){};
-    int read(void);
+    void setup(GPIO* gpio, int sign = 1);
+
+    uint8_t read(void);
 
 private:
     GPIO* m_gpio;
+    int m_sign = 1;
 };

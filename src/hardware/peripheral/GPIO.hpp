@@ -168,7 +168,7 @@
 
 class GPIO{
 public:
-    enum PinMode
+    typedef enum
     {
         PUSHPULL_AF     = 0b1000000,
         PUSHPULL_AFPU   = 0b1000001,
@@ -188,7 +188,7 @@ public:
         INPUT_PU        = 0b0000010,
         INPUT_PD        = 0b0000010,
         ANALOG          = 0b1100000,
-    };
+    }PinMode;
     typedef enum
     {
         LOW_SPEED = 0,

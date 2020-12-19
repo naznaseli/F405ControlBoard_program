@@ -9,8 +9,13 @@
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
 
-extern GPIO ledPin[4];
+#include "./parts/circuit/led.hpp"
+#include "./parts/circuit/button.hpp"
+#include "./parts/circuit/buzzer.hpp"
 
+extern Led led[4];
+extern Button button[4];
+extern Buzzer buzzer;
 
 //基板の機能、設定
 //センサアクチュエータなし？
@@ -44,7 +49,6 @@ private:
 
     size_t m_elapsedTime = 0;
     unsigned int m_delayCnt;
-    //unsigned int m_buzzerCnt;
 
     //! setup中身
     void RCC_Setup(void);
