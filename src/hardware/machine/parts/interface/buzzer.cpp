@@ -1,5 +1,6 @@
 #include "buzzer.hpp"
 #include <stdio.h>
+#include "../../../circuit/F405ControlBoard.hpp"
 
 Buzzer::Buzzer(GPIO* gpio)
 {
@@ -20,15 +21,15 @@ void Buzzer::setup(GPIO* gpio)
 void Buzzer::beep(uint16_t time)
 {
     m_gpio->write(1);
-    //delay_ms(time);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
-    for(int i = 0; i < 10000; i++);
+    F405ControlBoard::delay_ms(time);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
+    //for(int i = 0; i < 10000; i++);
     m_gpio->write(0);
 }
 

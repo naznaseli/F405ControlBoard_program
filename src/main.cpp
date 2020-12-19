@@ -12,26 +12,20 @@ using namespace interface;
 int main(void)
 {
     //ペリフェラルセットアップ
-    //F405ControlBoard::getInstance()->setup();
     F405ControlBoard::setup();
 
     interface::setup();
     sensor::setup();
     //actuator::setup();
 
-    for(int i = 0; i < 100; i++)
-    {
-        led[1].write(1);
-        F405ControlBoard::delay_ms(1000);
-        //F405ControlBoard::delay_us(10);
-        //buzzer.beep(1000);
-        led[1].write(0);
-        F405ControlBoard::delay_ms(1000);
-    }
+    led[1].write(1);
+    F405ControlBoard::delay_ms(500);
+    led[1].write(0);
+
+    buzzer.beep(30);
 
     while(1)
     {
-        //F405ControlBoard::getInstance()->cycle();
         F405ControlBoard::cycle();
 
         if(button[0].read()) led[0].write(1);
@@ -39,10 +33,10 @@ int main(void)
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
 
-        if(sensor::limitSw[0].read()) led[0].write(1);
-        else led[0].write(0);
-        if(sensor::limitSw[1].read()) led[1].write(1);
-        else led[1].write(0);
+        //if(sensor::limitSw[0].read()) led[0].write(1);
+        //else led[0].write(0);
+        //if(sensor::limitSw[1].read()) led[1].write(1);
+        //else led[1].write(0);
 
         //目標値反映
         //can送信、local反映
@@ -53,7 +47,6 @@ int main(void)
 //! 1ms割り込み
 void interrupt_1ms(void)
 {
-    //F405ControlBoard::getInstance()->interrupt_1ms();
     F405ControlBoard::interrupt_1ms();
 
     static int cnt1 = 0;

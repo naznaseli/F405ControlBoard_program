@@ -207,14 +207,14 @@ void F405ControlBoard::cycle(void)
 void F405ControlBoard::interrupt_1ms(void)
 {
     //m_elapsedTime++;
-    if(m_delayCnt) m_delayCnt--;
+    //if(m_delayCnt) m_delayCnt--;
 
-    static int cnt = 0;
-    if(++cnt >= 1000)
-    {
-        cnt = 0;
-        ledPin[0].toggle();
-    }
+    //static int cnt = 0;
+    //if(++cnt >= 1000)
+    //{
+    //    cnt = 0;
+    //    ledPin[0].toggle();
+    //}
 }
 
 void F405ControlBoard::interrupt_10ms(void)
