@@ -40,8 +40,10 @@ Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
 $(wildcard src/*.c) \
 $(wildcard src/hardware/*.c) \
 $(wildcard src/hardware/circuit/*.c) \
+$(wildcard src/hardware/circuit/function/*.c) \
 $(wildcard src/hardware/circuit/peripheral/*.c) \
-$(wildcard src/hardware/parts/circuit/*.c)
+$(wildcard src/hardware/machine/parts/interface/*.c) \
+$(wildcard src/hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/*.c)
 #$(wildcard src/software/*.c)
 
 # C++ sources
@@ -49,8 +51,10 @@ CPP_SOURCES = \
 $(wildcard src/*.cpp) \
 $(wildcard src/hardware/*.cpp) \
 $(wildcard src/hardware/circuit/*.cpp) \
+$(wildcard src/hardware/circuit/function/*.cpp) \
 $(wildcard src/hardware/circuit/peripheral/*.cpp) \
-$(wildcard src/hardware/parts/circuit/*.cpp)
+$(wildcard src/hardware/machine/parts/interface/*.cpp) \
+$(wildcard src/hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/*.cpp)
 #$(wildcard src/software/*.cpp)
 
 # ASM sources

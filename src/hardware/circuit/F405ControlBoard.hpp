@@ -9,12 +9,10 @@
 //#include "./peripheral/SPI.hpp"
 //#include "./peripheral/IWDG.hpp"
 
-#include "../parts/circuit/led.hpp"
-#include "../parts/circuit/button.hpp"
-#include "../parts/circuit/buzzer.hpp"
 
 extern GPIO ledPin[4];
 extern GPIO buttonPin[4];
+extern GPIO buzzerPin;
 
 //extern Led led[4];
 //extern Button button[4];
@@ -45,13 +43,12 @@ public:
     void interrupt_10ms(void);
 
     size_t millis(void);
-    void delay_us(uint16_t us);
-    void delay_ms(uint16_t ms);
+    void delay_us(uint16_t time);
+    void delay_ms(uint16_t time);
 
 private:
-
     size_t m_elapsedTime = 0;
-    unsigned int m_delayCnt;
+    uint16_t m_delayCnt = 0;
 
     //! setup中身
     void RCC_Setup(void);

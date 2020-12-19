@@ -1,10 +1,9 @@
 #pragma once
 
-class SerialPort
+class Omni4
 {
 public:
 
 private:
-    //USART* usart;
 
 };

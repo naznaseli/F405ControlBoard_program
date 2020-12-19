@@ -1,5 +1,5 @@
 #include "interrupt.hpp"
-#include "F405ControlBoard.hpp"
+#include "../F405ControlBoard.hpp"
 
 #define CAN_SID_MD0 0x100
 #define CAN_SID_MD1 0x102
@@ -42,13 +42,13 @@ void TIM3_IRQHandler(void)
     //多重割り込み禁止
     //ProtectInterrupt pi;
 
-    board->interrupt_1ms();
+    //board->interrupt_1ms();
 }
 
 //10ms interrupt
 void TIM4_IRQHandler(void)
 {
-    board->interrupt_10ms();
+    //board->interrupt_10ms();
 
     //センサ更新
     //sensor.input();

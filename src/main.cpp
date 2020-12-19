@@ -1,4 +1,5 @@
 #include "./hardware/circuit/F405ControlBoard.hpp"
+#include "./hardware/circuit/function/delay.hpp"
 #include <stddef.h>
 //#include "machine.hpp"
 
@@ -11,29 +12,14 @@ int main(void)
     F405ControlBoard::getInstance()->setup();
     //F405ControlBoard::getInstance()->setupInterface();
 
-    ledPin[0].write(1);
+    //ledPin[0].write(1);
     ledPin[1].write(1);
-    ledPin[2].write(1);
-    ledPin[3].write(1);
-    //led[0].write(1);
-    //led[1].write(1);
-    //led[2].write(1);
-    //led[3].write(1);
-    //buzzerPin.write(1);
-    //buzzer.write(1);
-    for(int i = 0; i < 100000; i++);
-    for(int i = 0; i < 100000; i++);
-    for(int i = 0; i < 100000; i++);
-    for(int i = 0; i < 100000; i++);
-    for(int i = 0; i < 100000; i++);
-    ledPin[0].write(0);
+    ////delay_ms(1000);
+    //F405ControlBoard::getInstance()->delay_ms(1000);
+    ////buzzerPin.write(1);
+    ////buzzer.write(1);
+    //ledPin[0].write(0);
     ledPin[1].write(0);
-    ledPin[2].write(0);
-    ledPin[3].write(0);
-    //led[0].write(1);
-    //led[1].write(1);
-    //led[2].write(1);
-    //led[3].write(1);
     //buzzer.write(0);
 
     //sixaxis3 = new Sixaxis(&usart4);
@@ -70,12 +56,7 @@ int main(void)
 //! 1ms割り込み
 void interrupt_1ms(void)
 {
-    //シングルトン
-    //ローカル/更新頻度高いセンサ更新
-    //sensor.update_1ms();
-
-    //ローカルのアクチュエータ/更新頻度高いアクチュエータ更新
-    //actuator.update_1ms();
+    F405ControlBoard::getInstance()->interrupt_1ms();
 
     static int cnt = 0;
     if(++cnt >= 100)

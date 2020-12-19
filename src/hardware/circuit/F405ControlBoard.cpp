@@ -7,9 +7,9 @@ F405ControlBoard F405ControlBoard::m_instance;
 
 GPIO ledPin[4];
 GPIO buttonPin[4];
-//GPIO limitSwPin[4];
 GPIO buzzerPin;
 //GPIO swdio, swclk;
+//GPIO limitSwPin[4];
 //USART usart1, usart2, usart3, uart4, uart5;
 TIM tim6, tim7;
 TIM tim9, tim10;    //代わり
@@ -31,7 +31,6 @@ F405ControlBoard::F405ControlBoard()
 {
     m_elapsedTime = 0;
     m_delayCnt = 0;
-    //m_buzzerCnt = 0;
 }
 
 void F405ControlBoard::setup(void)
@@ -111,8 +110,8 @@ void F405ControlBoard::RCC_Setup(void)
 
 void F405ControlBoard::GPIO_Setup(void)
 {
-    //ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
-    ledPin[0].setup(PC9, GPIO::PUSHPULL_AF, GPIO::SUPERHIGH_SPEED);
+    ledPin[0].setup(PC9, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
+    //ledPin[0].setup(PC9, GPIO::PUSHPULL_AF, GPIO::SUPERHIGH_SPEED);
     ledPin[1].setup(PC8, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     ledPin[2].setup(PA10, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
     ledPin[3].setup(PB3, GPIO::PUSHPULL, GPIO::SUPERHIGH_SPEED);
@@ -241,18 +240,14 @@ void F405ControlBoard::cycle(void)
 
 void F405ControlBoard::interrupt_1ms(void)
 {
-    static int cnt = 0;
-    if(++cnt >= 100)
-    {
-        //led1.toggle();
-        ;
-    }
+    //static int cnt = 0;
+    //if(++cnt >= 100)
+    //{
+    //    //led1.toggle();
+    //    ;
+    //}
     m_elapsedTime++;
-    if(m_delayCnt) m_delayCnt--;
-    //if(m_buzzerCnt) m_buzzerCnt--;
-
-    //ユーザエンコーダの読み取り
-
+    if(m_delayCnt > 0) m_delayCnt--;
 }
 
 void F405ControlBoard::interrupt_10ms(void)
@@ -270,7 +265,7 @@ size_t F405ControlBoard::millis(void)
     return m_elapsedTime;
 }
 
-void F405ControlBoard::delay_us(uint16_t us)
+void F405ControlBoard::delay_us(uint16_t time)
 {
     //while(us--)
     //{
@@ -278,8 +273,8 @@ void F405ControlBoard::delay_us(uint16_t us)
     //}
 }
 
-void F405ControlBoard::delay_ms(uint16_t ms)
+void F405ControlBoard::delay_ms(uint16_t time)
 {
-    m_delayCnt = ms;
+    m_delayCnt = time;
     while(m_delayCnt);
 }

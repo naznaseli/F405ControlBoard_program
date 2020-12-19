@@ -1,6 +1,6 @@
 #pragma once
 //#include "src/hardware/peripheral/GPIO.hpp"
-#include "../../circuit/peripheral/GPIO.hpp"
+#include "../../../circuit/peripheral/GPIO.hpp"
 #include "../parts.hpp"
 
 //ポリモーフィズム意識
