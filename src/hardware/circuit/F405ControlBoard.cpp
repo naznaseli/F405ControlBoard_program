@@ -128,7 +128,8 @@ void TIM_Setup(void)
     tim10.enableCount();
 
     //エンコーダ
-    //tim4.setup(TIM4, );
+    tim4.setup(TIM4, PB6, PB7, 65535);
+    tim4.enableCount();
     //tim3.setup(TIM3, );
     //tim8.setup(TIM8, );
     //tim5.setup(TIM5, );

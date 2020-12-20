@@ -52,8 +52,8 @@ public:
     {
     public:
         Channel(){};
-        ~Channel(){};
         Channel(GPIO_TypeDef* GPIOx, uint8_t pin, GPIO::PinMode pinMode);
+        ~Channel();
 
         //ピンにPWMを出力
         void pwm();
