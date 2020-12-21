@@ -3,6 +3,7 @@
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/interface.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
 #include <stddef.h>
+#include <stdint.h>
 
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
@@ -30,21 +31,12 @@ int main(void)
 
     while(1)
     {
-        static uint16_t cnt = 0;
         F405ControlBoard::cycle();
 
         if(button[0].read()) led[0].write(1);
         else led[0].write(0);
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
-
-        if(++cnt >= 10000)
-        {
-            cnt = 0;
-            clcd.clear();
-            clcd.cursor(0, 0);
-            clcd.printf("%d", TIM4->CNT);
-        }
 
         //目標値反映
         //can送信、local反映

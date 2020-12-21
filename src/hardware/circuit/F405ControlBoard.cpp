@@ -2,13 +2,16 @@
 //#include "./parts/sensor.hpp"
 //#include "./parts/actuator.hpp"
 
-#define GPIO_MODE   1
+#define ADC_MODE   1
+#define BUZZER_SCALE_MODE 0
 
 namespace F405ControlBoard
 {
 GPIO ledPin[4];
 GPIO buttonPin[4];
+#if !BUZZER_SCALE_MODE
 GPIO buzzerPin;
+#endif
 GPIO limitSwPin[4];
 GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 //GPIO swdio, swclk;
@@ -17,6 +20,9 @@ GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 TIM tim6, tim7;
 TIM tim9, tim10;    //代わり
 TIM tim3, tim4;     //エンコーダ
+#if BUZZER_SCALE_MODE
+TIM tim11;
+#endif
 //TIM tim1, tim2, tim3, tim4, tim5, tim6, tim10, tim13, tim14;
 //bxCAN can1;
 
@@ -44,7 +50,7 @@ void setup(void)
     bxCAN_Setup();
 
     //IWDG設定
-    IWDG_Setup();
+    //IWDG_Setup();
 }
 
 void RCC_Setup(void)
@@ -79,7 +85,9 @@ void GPIO_Setup(void)
     buttonPin[2].setup(PB14, GPIO::FLOATING);
     buttonPin[3].setup(PB15, GPIO::FLOATING);
 
+#if !BUZZER_SCALE_MODE
     buzzerPin.setup(PB9, GPIO::PUSHPULL);
+#endif
 
     //ue_sw.setup(PC3, GPIO::FLOATING);
     //ue_a.setup(PA4, GPIO::FLOATING);
@@ -92,7 +100,7 @@ void GPIO_Setup(void)
     lcd_db6.setup(PC13, GPIO::PUSHPULL);
     lcd_db7.setup(PC14, GPIO::PUSHPULL);
 
-#if GPIO_MODE
+#if !ADC_MODE
     limitSwPin[0].setup(PC4, GPIO::INPUT_PU);
     limitSwPin[1].setup(PC5, GPIO::INPUT_PU);
     limitSwPin[2].setup(PB0, GPIO::INPUT_PU);
@@ -107,23 +115,20 @@ void GPIO_Setup(void)
 
 void TIM_Setup(void)
 {
-    int apb1 = clock::getAPB1TimerClock();
-    int apb2 = clock::getAPB2TimerClock();
-
     //タイマ
-    tim6.setSourceFreq(apb1);
+    //tim6.setSourceFreq(apb1);
     tim6.setup(TIM6, 12, 1000000);
     tim6.enableCount();
 
-    tim7.setSourceFreq(apb1);
+    //tim7.setSourceFreq(apb1);
     tim7.setup(TIM7, 12, 1000000);
     tim7.enableCount();
 
-    tim9.setSourceFreq(apb2);
+    //tim9.setSourceFreq(apb2);
     tim9.setup(TIM9, 12, 1000000);
     tim9.enableCount();
 
-    tim10.setSourceFreq(apb2);
+    //tim10.setSourceFreq(apb2);
     tim10.setup(TIM10, 12, 1000000);
     tim10.enableCount();
 
@@ -138,6 +143,11 @@ void TIM_Setup(void)
     //tim10.setup(TIM10, );
     //tim13.setup(TIM13, );
     //tim14.setup(TIM14, );
+
+    //ブザー
+#if BUZZER_SCALE_MODE
+    //tim11.setup(TIM11, PB9, 10000);
+#endif
 }
 
 void USART_Setup(void)
@@ -162,8 +172,7 @@ void USART_Setup(void)
 
 void ADC_Setup(void)
 {
-#if GPIO_MODE
-#else
+#if ADC_MODE
     //adcPin[0].setup(PC4, );
     //adcPin[1].setup(PC5, );
     //adcPin[2].setup(PB0, );
@@ -180,13 +189,13 @@ void bxCAN_Setup(void)
 
 void IWDG_Setup(void)
 {
-
+    iwdg::setup_ms(500);
+    iwdg::start();
 }
 
 void cycle(void)
 {
-    //ウォッチドッグタイマ
-    //IWDG_Reset();
+    iwdg::reset();
 
     //static uint16_t cnt = 0;
     //if(++cnt >= 50000)

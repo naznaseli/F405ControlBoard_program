@@ -7,7 +7,7 @@
 //#include "./peripheral/USART.hpp"
 //#include "./peripheral/bxCAN.hpp"
 //#include "./peripheral/SPI.hpp"
-//#include "./peripheral/IWDG.hpp"
+#include "./peripheral/IWDG.hpp"
 
 #define ONBOARD_LED_NUM     4
 #define ONBOARD_BUTTON_NUM  4
