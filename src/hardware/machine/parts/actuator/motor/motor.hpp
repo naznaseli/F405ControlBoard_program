@@ -10,8 +10,6 @@ class Motor
 public:
     Motor();
     void setup(PartsType type);
-    //void setup(PartsType partsType = LOCAL, TIM* tim);
-    //void setup(PartsType partsType = CAN, bxCAN* can, uint16_t address);
     void setup(TIM* tim);
     void setup(bxCAN* can, uint16_t address);
     ~Motor();
@@ -20,7 +18,7 @@ public:
 
     void setPwmTarget(double pwm);
     void setVel(double vel);
-    void free(void);
+    void free(void) = 0;
 
     //getter
     void getPwm() const { return m_pwm; };
