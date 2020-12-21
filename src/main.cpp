@@ -24,18 +24,27 @@ int main(void)
     led[1].write(0);
 
     clcd.cursor(0, 0);
-    clcd.printf("test");
+    clcd.printf("F405ControlBoard");
 
     buzzer.beep(30);
 
     while(1)
     {
+        static uint16_t cnt = 0;
         F405ControlBoard::cycle();
 
         if(button[0].read()) led[0].write(1);
         else led[0].write(0);
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
+
+        if(++cnt >= 10000)
+        {
+            cnt = 0;
+            clcd.clear();
+            clcd.cursor(0, 0);
+            clcd.printf("%d", TIM4->CNT);
+        }
 
         //目標値反映
         //can送信、local反映

@@ -32,6 +32,22 @@ void TIM1_UP_TIM10_IRQHandler(void)
     TIM10->SR = 0;
 }
 
+void TIM::setup(TIM_TypeDef* TIMx, GPIO_TypeDef* gpioA, uint8_t pinA, GPIO_TypeDef* gpioB, uint8_t pinB, uint16_t period)
+{
+    setup(TIMx, TimMode::ENCODER);
+
+    ch1 = new Channel(gpioA, pinA, GPIO::FLOATING);
+    ch2 = new Channel(gpioB, pinB, GPIO::FLOATING);
+    //remap(gpioA, pinA, gpioB, pinB, NULL, -1, NULL, -1);
+
+    TIMx->SMCR |= 0x0003;   //エンコーダモード3
+    TIMx->CCMR1 |= 0x0101;
+    TIMx->CR1 |= TIM_CR1_ARPE;
+    TIMx->ARR = period;
+
+    resetCount();
+}
+
 void TIM::setup(TIM_TypeDef* TIMx, uint16_t prescaler, uint32_t interruptTime)
 {
     setup(TIMx, TimMode::TIMER);
@@ -137,4 +153,17 @@ void TIM::setup(TIM_TypeDef* TIMx, TimMode timMode)
 void TIM::setSourceFreq(int freq)
 {
     m_sourceFreq = freq;
+}
+
+//:**********************************************************************
+//! Channnel
+//:**********************************************************************
+TIM::Channel::Channel(GPIO_TypeDef* GPIOx, uint8_t pin, GPIO::PinMode pinMode)
+{
+    m_gpio = new GPIO(GPIOx, pin, pinMode);
+}
+
+TIM::Channel::~Channel()
+{
+    delete m_gpio;
 }

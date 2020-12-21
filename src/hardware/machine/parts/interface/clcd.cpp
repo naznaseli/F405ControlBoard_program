@@ -5,7 +5,7 @@
 //TODO: 関数の説明メモ書き修正
 
 #define LCD_RS_CMD  0   //RS端子:コマンド
-#define LCD_RS_DATA 0   //RS端子:データ
+#define LCD_RS_DATA 1   //RS端子:データ
 
 CharacterLcd::~CharacterLcd()
 {
