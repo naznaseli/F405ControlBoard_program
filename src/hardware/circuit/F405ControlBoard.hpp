@@ -4,7 +4,7 @@
 #include "./peripheral/RCC.hpp"
 #include "./peripheral/GPIO.hpp"
 #include "./peripheral/TIM.hpp"
-//#include "./peripheral/USART.hpp"
+#include "./peripheral/USART.hpp"
 //#include "./peripheral/bxCAN.hpp"
 //#include "./peripheral/SPI.hpp"
 #include "./peripheral/IWDG.hpp"
@@ -21,6 +21,7 @@ extern GPIO buzzerPin;
 extern GPIO limitSwPin[ONBOARD_LIMITSW_NUM];
 extern GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 extern TIM tim3, tim4;
+extern UART uart4, uart5;
 
 //基板の機能、設定
 //センサアクチュエータなし？

@@ -2,21 +2,6 @@
 #include "stm32f405xx.h"
 #include "GPIO.hpp"
 
-#ifdef __cplusplus
-extern "C"{
-#endif
-//extern void TIM1_IRQHandler(void);
-//extern void TIM2_IRQHandler(void);
-//extern void TIM3_IRQHandler(void);
-//extern void TIM4_IRQHandler(void);
-extern void TIM6_DAC_IRQHandler(void);
-extern void TIM7_IRQHandler(void);
-extern void TIM1_BRK_TIM9_IRQHandler(void);
-extern void TIM1_UP_TIM10_IRQHandler(void);
-#ifdef __cplusplus
-}
-#endif
-
 class TIM
 {
 public:

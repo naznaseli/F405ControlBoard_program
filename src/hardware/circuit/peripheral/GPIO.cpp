@@ -58,7 +58,16 @@ void GPIO::setup(GPIO_TypeDef* gpio, uint8_t pin, PinMode pinMode, OutputSpeed o
 
 void GPIO::setAlternate(uint8_t alternate)
 {
-
+    if(m_pin <= 7)
+    {   //AFRL
+        m_GPIOx->AFR[0] &= ~(alternate << m_pin*4);
+        m_GPIOx->AFR[0] |= alternate << m_pin*4;
+    }
+    else
+    {   //AFRH
+        m_GPIOx->AFR[1] &= ~(alternate << (m_pin-8)*4);
+        m_GPIOx->AFR[1] |= alternate << (m_pin-8)*4;
+    }
 }
 
 uint8_t GPIO::read(void)

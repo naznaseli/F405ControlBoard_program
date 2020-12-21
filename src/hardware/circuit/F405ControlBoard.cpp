@@ -1,6 +1,4 @@
 #include "F405ControlBoard.hpp"
-//#include "./parts/sensor.hpp"
-//#include "./parts/actuator.hpp"
 
 #define ADC_MODE   1
 #define BUZZER_SCALE_MODE 0
@@ -20,6 +18,7 @@ GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 TIM tim6, tim7;
 TIM tim9, tim10;    //代わり
 TIM tim3, tim4;     //エンコーダ
+UART uart4, uart5;
 #if BUZZER_SCALE_MODE
 TIM tim11;
 #endif
@@ -133,8 +132,8 @@ void TIM_Setup(void)
     tim10.enableCount();
 
     //エンコーダ
-    tim4.setup(TIM4, PB6, PB7, 65535);
-    tim4.enableCount();
+    //tim4.setup(TIM4, PB6, PB7, 65535);
+    //tim4.enableCount();
     //tim3.setup(TIM3, );
     //tim8.setup(TIM8, );
     //tim5.setup(TIM5, );
@@ -160,10 +159,10 @@ void USART_Setup(void)
     //usart3.setup(USART3, PB10, PB11, 115200);
 
     //XA
-    //usart4.setup(UART4, PC10, PC11, 115200);
+    uart4.setup(UART4, PC10, PC11, 115200);
 
     //XA
-    //uart5.setup(UART5, PC12, PD2, 115200);
+    uart5.setup(UART5, PC12, PD2, 115200);
 
     //SBDBT
     //usart6.setup(USART6, PC6, PC7, 115200);

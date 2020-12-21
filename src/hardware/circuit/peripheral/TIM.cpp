@@ -1,53 +1,5 @@
 #include "TIM.hpp"
 
-extern void interrupt_1ms(void);
-extern void interrupt_10ms(void);
-
-void TIM6_DAC_IRQHandler(void);
-void TIM7_IRQHandler(void);
-void TIM1_BRK_TIM9_IRQHandler(void);
-void TIM1_UP_TIM10_IRQHandler(void);
-
-void TIM6_DAC_IRQHandler(void)
-{
-    //interrupt_1ms();
-    TIM6->SR = 0;
-}
-
-void TIM7_IRQHandler(void)
-{
-    //interrupt_10ms();
-    TIM7->SR = 0;
-}
-
-void TIM1_BRK_TIM9_IRQHandler(void)
-{
-    interrupt_1ms();
-    TIM9->SR = 0;
-}
-
-void TIM1_UP_TIM10_IRQHandler(void)
-{
-    interrupt_10ms();
-    TIM10->SR = 0;
-}
-
-void TIM::setup(TIM_TypeDef* TIMx, GPIO_TypeDef* gpioA, uint8_t pinA, GPIO_TypeDef* gpioB, uint8_t pinB, uint16_t period)
-{
-    setup(TIMx, TimMode::ENCODER);
-
-    ch1 = new Channel(gpioA, pinA, GPIO::FLOATING);
-    ch2 = new Channel(gpioB, pinB, GPIO::FLOATING);
-    //remap(gpioA, pinA, gpioB, pinB, NULL, -1, NULL, -1);
-
-    TIMx->SMCR |= 0x0003;   //エンコーダモード3
-    TIMx->CCMR1 |= 0x0101;
-    TIMx->CR1 |= TIM_CR1_ARPE;
-    TIMx->ARR = period;
-
-    resetCount();
-}
-
 void TIM::setup(TIM_TypeDef* TIMx, uint16_t prescaler, uint32_t interruptTime)
 {
     setup(TIMx, TimMode::TIMER);

@@ -40,7 +40,7 @@ Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c \
 $(wildcard src/*.c) \
 $(wildcard src/hardware/*.c) \
 $(wildcard src/hardware/circuit/*.c) \
-$(wildcard src/hardware/circuit/function/*.c) \
+$(wildcard src/hardware/circuit/utils/*.c) \
 $(wildcard src/hardware/circuit/peripheral/*.c) \
 $(wildcard src/hardware/machine/parts/interface/*.c) \
 $(wildcard src/hardware/machine/parts/sensor/*.c) \
@@ -52,7 +52,7 @@ CPP_SOURCES = \
 $(wildcard src/*.cpp) \
 $(wildcard src/hardware/*.cpp) \
 $(wildcard src/hardware/circuit/*.cpp) \
-$(wildcard src/hardware/circuit/function/*.cpp) \
+$(wildcard src/hardware/circuit/utils/*.cpp) \
 $(wildcard src/hardware/circuit/peripheral/*.cpp) \
 $(wildcard src/hardware/machine/parts/interface/*.cpp) \
 $(wildcard src/hardware/machine/parts/sensor/*.cpp) \

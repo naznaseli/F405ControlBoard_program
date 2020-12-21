@@ -26,41 +26,39 @@ typedef struct
     uint8_t data[8];
 }CanData;
 
-void TIM1_IRQHandler(void)
-{
+extern void interrupt_1ms(void);
+extern void interrupt_10ms(void);
 
+void TIM6_DAC_IRQHandler(void);
+void TIM7_IRQHandler(void);
+void TIM1_BRK_TIM9_IRQHandler(void);
+void TIM1_UP_TIM10_IRQHandler(void);
+
+void TIM6_DAC_IRQHandler(void)
+{
+    //interrupt_1ms();
+    TIM6->SR = 0;
 }
 
-void TIM2_IRQHandler(void)
+void TIM7_IRQHandler(void)
 {
-
+    //interrupt_10ms();
+    TIM7->SR = 0;
 }
 
-//1ms interrupt
-void TIM3_IRQHandler(void)
+void TIM1_BRK_TIM9_IRQHandler(void)
 {
-    //多重割り込み禁止
-    //ProtectInterrupt pi;
-
-    //board->interrupt_1ms();
+    interrupt_1ms();
+    TIM9->SR = 0;
 }
 
-//10ms interrupt
-void TIM4_IRQHandler(void)
+void TIM1_UP_TIM10_IRQHandler(void)
 {
-    //board->interrupt_10ms();
-
-    //センサ更新
-    //sensor.input();
-
-    //**********************************************************************
-    //制御
-    //**********************************************************************
-
-    //アクチュエータ更新
-    //actuator.output();
-
+    interrupt_10ms();
+    TIM10->SR = 0;
 }
+
+
 
 void CAN1_TX_IRQHandler(void)
 {
