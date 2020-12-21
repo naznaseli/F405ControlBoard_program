@@ -2,11 +2,20 @@
 #include "./hardware/circuit/utils/delay.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/interface.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
-#include <stddef.h>
-#include <stdint.h>
+#include <stdio.h>
 
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
+
+//int __io_putchar(int ch)
+//{
+//    return (F405ControlBoard::uart5._putchar(ch));
+//}
+//
+//int __io_getchar(void)
+//{
+//
+//}
 
 using namespace interface;
 
@@ -14,6 +23,8 @@ int main(void)
 {
     //ペリフェラルセットアップ
     F405ControlBoard::setup();
+
+    setbuf(stdout, NULL);
 
     interface::setup();
     sensor::setup();
@@ -27,8 +38,11 @@ int main(void)
     clcd.printf("F405ControlBoard");
 
     buzzer.beep(30);
-    F405ControlBoard::uart4.putchar_('a');
-    F405ControlBoard::uart5.putchar_('a');
+    F405ControlBoard::uart5.printf("F405ControlBoard\n");
+    F405ControlBoard::uart4.printf("F405ControlBoard\n");
+    F405ControlBoard::uart5.printf("%f\n", 1.234);
+    setbuf(stdout, NULL);
+    printf("f405");
 
     while(1)
     {

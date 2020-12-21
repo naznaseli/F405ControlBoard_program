@@ -1,5 +1,8 @@
 #include "USART.hpp"
 #include "RCC.hpp"
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
 
 #define writeBit(PERIPH, REG, SYM, VAL) (PERIPH->REG)=((PERIPH->REG)&(~PERIPH##_##REG##_##SYM##_Msk))|(VAL<<PERIPH##_##REG##_##SYM##_Pos)
 #define writeReg(PERIPH, REG, VAL)      (PERIPH->REG)
@@ -100,7 +103,7 @@ void UART::enableRx(void)
     m_UARTx->CR1 |= USART_CR1_RE;
 }
 
-int UART::putchar_(uint8_t c)
+int UART::_putchar(uint8_t c)
 {
     while((m_UARTx->SR & USART_SR_TC) == 0);
     m_UARTx->DR = c;
@@ -109,7 +112,7 @@ int UART::putchar_(uint8_t c)
     return (int)c;
 }
 
-int UART::getchar_(void)
+int UART::_getchar(void)
 {
 
     return 0;
@@ -117,18 +120,38 @@ int UART::getchar_(void)
 
 int UART::write(const uint8_t* data, int size)
 {
-
-    return 0;
+    const uint8_t* p = data;
+    int cnt = 0;
+    
+    if(p == NULL) return 0;
+    while(size > 0)
+    {
+        _putchar(*(p++));
+        size--;
+        cnt++;
+    }
+    return cnt;
 }
 
 int UART::read(uint8_t* data, int size)
 {
-
-    return 0;
+    int cnt = 0;
+    while(size > 0)
+    {
+        _getchar();
+        size--;
+        cnt++;
+    }
+    return cnt;
 }
 
 int UART::printf(const char* format, ...)
 {
-
-    return 0;
+    char buffer[128];
+    va_list ap;
+    int len;
+    va_start(ap, format);
+    len = vsprintf(buffer, format, ap);
+    va_end(ap);
+    return write((uint8_t*)buffer, len);
 }

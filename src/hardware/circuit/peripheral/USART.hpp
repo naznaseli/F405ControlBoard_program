@@ -19,8 +19,8 @@ public:
     void enableTx(void);
     void enableRx(void);
 
-    int putchar_(uint8_t c);
-    int getchar_(void);
+    int _putchar(uint8_t c);
+    int _getchar(void);
     int write(const uint8_t* data, int size);
     int read(uint8_t* data, int size);
     int printf(const char* format, ...);
