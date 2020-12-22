@@ -1,8 +1,16 @@
 #include "./hardware/circuit/F405ControlBoard.hpp"
 #include "./hardware/circuit/utils/delay.hpp"
+#include "./hardware/circuit/utils/menu.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/interface.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
 #include <stdio.h>
+
+Menu menu;
+
+void showCircuitMenu(void)
+{
+    menu.cycle(&Menu_Main);
+}
 
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
@@ -47,6 +55,8 @@ int main(void)
     while(1)
     {
         F405ControlBoard::cycle();
+        menu.cycle(&Menu_Main);
+        //Menu::cycle(&Menu_Main);
 
         if(button[0].read()) led[0].write(1);
         else led[0].write(0);
