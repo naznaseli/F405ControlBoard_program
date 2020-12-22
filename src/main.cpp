@@ -3,30 +3,15 @@
 #include "./hardware/circuit/utils/menu.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/interface.hpp"
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
-#include <stdio.h>
 
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
-
-//int __io_putchar(int ch)
-//{
-//    return (F405ControlBoard::uart5._putchar(ch));
-//}
-//
-//int __io_getchar(void)
-//{
-//
-//}
 
 using namespace interface;
 
 int main(void)
 {
-    //ペリフェラルセットアップ
     F405ControlBoard::setup();
-
-    setbuf(stdout, NULL);
-
     interface::setup();
     sensor::setup();
     //actuator::setup();
@@ -34,9 +19,6 @@ int main(void)
     led[1].write(1);
     delay_ms(500);
     led[1].write(0);
-
-    clcd.cursor(0, 0);
-    clcd.printf("F405ControlBoard");
 
     //F405ControlBoard::usart2.printf("F405ControlBoard");
     F405ControlBoard::usart3.printf("F405ControlBoard\n");
@@ -55,8 +37,6 @@ int main(void)
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
 
-        //F405ControlBoard::uart5.printf("%d", rawValue);
-
         //目標値反映
         //can送信、local反映
         //actuator::update();
@@ -69,10 +49,10 @@ void interrupt_1ms(void)
     F405ControlBoard::interrupt_1ms();
     userEnc.sample();
 
-    static int cnt1 = 0;
-    if(++cnt1 >= 100)
+    static uint16_t cnt2 = 0;
+    if(++cnt2 >= 100)
     {
-        cnt1 = 0;
+        cnt2 = 0;
         led[2].toggle();
     }
 }
@@ -84,10 +64,10 @@ void interrupt_10ms(void)
 
     //Machine::getInstance()->update();
 
-    static int cnt2 = 0;
-    if(++cnt2 >= 10)
+    static uint16_t cnt3 = 0;
+    if(++cnt3 >= 10)
     {
-        cnt2 = 0;
+        cnt3 = 0;
         led[3].toggle();
     }
 
