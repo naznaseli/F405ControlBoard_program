@@ -39,6 +39,7 @@ int main(void)
     clcd.printf("F405ControlBoard");
 
     //F405ControlBoard::usart2.printf("F405ControlBoard");
+    F405ControlBoard::usart3.printf("F405ControlBoard\n");
 
     buzzer.beep(30);
 

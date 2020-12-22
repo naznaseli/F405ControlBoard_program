@@ -20,7 +20,7 @@ TIM tim6, tim7;
 TIM tim9, tim10;    //代わり
 TIM tim3, tim4;     //エンコーダ
 TIM ue_red, ue_green, ue_blue;   //ユーザエンコーダ
-UART usart2, uart4, uart5;
+UART usart2, usart3, uart4, uart5;
 #if BUZZER_SCALE_MODE
 TIM tim11;
 #endif
@@ -162,7 +162,7 @@ void USART_Setup(void)
     usart2.setup(USART2, PA2, PA3, 115200);
 
     //microUSB
-    //usart3.setup(USART3, PB10, PB11, 115200);
+    usart3.setup(USART3, PB10, PB11, 115200);
 
     //XA
     uart4.setup(UART4, PC10, PC11, 115200);
