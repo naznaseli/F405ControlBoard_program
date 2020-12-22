@@ -13,6 +13,8 @@ bool MenuBase::cycle(const RotaryMenu* menu)
 
     if(!show[m_recursion] && !jump[m_recursion])
     {
+        update();   //入力情報の更新
+
         if(inputSelect())
         {
             //決定

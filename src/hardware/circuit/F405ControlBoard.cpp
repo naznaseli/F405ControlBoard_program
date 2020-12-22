@@ -10,6 +10,7 @@ GPIO buttonPin[4];
 #if !BUZZER_SCALE_MODE
 GPIO buzzerPin;
 #endif
+GPIO ue_sw, ue_a, ue_b;
 GPIO limitSwPin[4];
 GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 //GPIO swdio, swclk;
@@ -18,7 +19,8 @@ GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 TIM tim6, tim7;
 TIM tim9, tim10;    //代わり
 TIM tim3, tim4;     //エンコーダ
-UART uart4, uart5;
+TIM ue_red, ue_green, ue_blue;   //ユーザエンコーダ
+UART usart2, uart4, uart5;
 #if BUZZER_SCALE_MODE
 TIM tim11;
 #endif
@@ -88,6 +90,10 @@ void GPIO_Setup(void)
     buzzerPin.setup(PB9, GPIO::PUSHPULL);
 #endif
 
+    ue_sw.setup(PC3, GPIO::FLOATING);
+    ue_a.setup(PA4, GPIO::FLOATING);
+    ue_b.setup(PA5, GPIO::FLOATING);
+
     //ue_sw.setup(PC3, GPIO::FLOATING);
     //ue_a.setup(PA4, GPIO::FLOATING);
     //ue_b.setup(PA5, GPIO::FLOATING);
@@ -139,9 +145,9 @@ void TIM_Setup(void)
     //tim5.setup(TIM5, );
 
     //ユーザエンコーダ
-    //tim10.setup(TIM10, );
-    //tim13.setup(TIM13, );
-    //tim14.setup(TIM14, );
+    //ue_red.setup(TIM10, 12, 1000000);
+    //ue_green.setup(TIM13, 12, 1000000);
+    //ue_blue.setup(TIM14, 12, 1000000);
 
     //ブザー
 #if BUZZER_SCALE_MODE
@@ -153,7 +159,7 @@ void USART_Setup(void)
 {
 
     //microUSB
-    //usart2.setup(USART2, PA2, PA3, 115200);
+    usart2.setup(USART2, PA2, PA3, 115200);
 
     //microUSB
     //usart3.setup(USART3, PB10, PB11, 115200);

@@ -8,11 +8,12 @@ Led led[4];
 Button button[4];
 Buzzer buzzer;
 CharacterLcd clcd;
+UserEncoder userEnc;
 Serial* pcDebug;
 
 void setup(void)
 {
-    //led = new Led[4];
+    //入出力ユーザインタフェース
     led[0].setup(&ledPin[0]);
     led[1].setup(&ledPin[1]);
     led[2].setup(&ledPin[2]);
@@ -22,22 +23,16 @@ void setup(void)
     button[2].setup(&buttonPin[2], -1);
     button[3].setup(&buttonPin[3], -1);
     buzzer.setup(&buzzerPin);
-
-    //ユーザエンコーダクラス
-    //userEnc = new UserEncoder;
-
-    //キャラクタ液晶設定
+    //userEnc.setup(&ue_sw, &ue_a, &ue_b, &ue_red, &ue_blue, &ue_green);
+    userEnc.setup(&ue_sw, &ue_a, &ue_b);
     clcd.setup(&lcd_rs, &lcd_e, &lcd_db4, &lcd_db5, &lcd_db6, &lcd_db7);
 
     //通信系
-    //コントローラ設定x2
     //sixaxis1.setup(USART6);
     //sixaxis2.setup(UART4);
-
-    //通信を何で使うか決める
     //sixaxis3 = new Controller(&usart6);
     //pc = new PC(&usart3);
-    pcDebug = new Serial(&uart5);
+    pcDebug = new Serial(&usart2);
 }
 
 //void interrupt_1ms(void)

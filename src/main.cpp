@@ -38,6 +38,8 @@ int main(void)
     clcd.cursor(0, 0);
     clcd.printf("F405ControlBoard");
 
+    //F405ControlBoard::usart2.printf("F405ControlBoard");
+
     buzzer.beep(30);
 
     while(1)
@@ -52,6 +54,8 @@ int main(void)
         if(button[1].read()) led[1].write(1);
         else led[1].write(0);
 
+        //F405ControlBoard::uart5.printf("%d", rawValue);
+
         //目標値反映
         //can送信、local反映
         //actuator::update();
@@ -62,6 +66,7 @@ int main(void)
 void interrupt_1ms(void)
 {
     F405ControlBoard::interrupt_1ms();
+    userEnc.sample();
 
     static int cnt1 = 0;
     if(++cnt1 >= 100)

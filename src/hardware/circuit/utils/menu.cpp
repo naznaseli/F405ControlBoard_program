@@ -27,10 +27,21 @@ const RotaryMenu Menu_Main =
     List_Main
 };
 
+void Menu::update(void)
+{
+    static int16_t enc_new = interface::userEnc.getRawValue();
+    static int16_t enc_old = enc_new;
+
+    enc_new = interface::userEnc.getRawValue();
+    if(enc_new < enc_old) m_left = true;
+    else if(enc_new > enc_old) m_right = true;
+    enc_old = enc_new;
+}
+
 bool Menu::inputSelect(void)
 {
     static int interval = INTERVAL_CNT;
-    if(!buttonPin[0].read())
+    if(!buttonPin[0].read() || ue_sw.read())
     {
         if(interval == 0)
         {
@@ -66,6 +77,11 @@ bool Menu::inputCancel(void)
 bool Menu::inputLeft(void)
 {
     static int interval = INTERVAL_CNT;
+    if(m_left)
+    {
+        m_left = false;
+        return true;
+    }
     if(!buttonPin[2].read())
     {
         if(interval == 0)
@@ -84,6 +100,11 @@ bool Menu::inputLeft(void)
 bool Menu::inputRight(void)
 {
     static int interval = INTERVAL_CNT;
+    if(m_right)
+    {
+        m_right = false;
+        return true;
+    }
     if(!buttonPin[3].read())
     {
         if(interval == 0)
@@ -118,26 +139,13 @@ void Menu::showMenu(const RotaryMenu* menu, int cursor)
     interface::pcDebug->printf(menu->menu[cursor].title);
     interface::pcDebug->setCursor(1, 12);
     interface::pcDebug->printf(menu->menuTitle);
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < 16; i++)
     {
-        if(i >= menu->listNumber)break;
-        if((i + 8) < menu->listNumber)
-        {
-
-            interface::pcDebug->printf("%s", (cursor == i)? "->" : "  ");
-            interface::pcDebug->printf("%s", menu->menu[i].title);
-            interface::pcDebug->setCursor(26, i + 3);
-            interface::pcDebug->printf("%s", (cursor == i)? "->" : "  ");
-            interface::pcDebug->printf("%s", menu->menu[i + 8].title);
-            //printf("\033[%d;H%c%s\033[%d;25H%c%s", i+4, (cursor == i)? '>' : ' ', menu->menu[i].title, i+4, (cursor == i+8)? '>' : ' ', menu->menu[i+8].title);
-        }
-        else
-        {
-            interface::pcDebug->setCursor(1, i + 3);
-            interface::pcDebug->printf("%s", (cursor == i)? "->" : "  ");
-            interface::pcDebug->printf("%s", menu->menu[i].title);
-            //printf("\033[%d;H%c%s", i+4, (cursor == i)? '>' : ' ', menu->menu[i].title);
-        }
+        if(i >= menu->listNumber) break;
+        if(i < 8) interface::pcDebug->setCursor(1, i + 3);
+        else interface::pcDebug->setCursor(26, i - 8 + 3);
+        interface::pcDebug->printf("%s", (cursor == i)? "->" : "  ");
+        interface::pcDebug->printf("%s", menu->menu[i].title);
     }
 }
 

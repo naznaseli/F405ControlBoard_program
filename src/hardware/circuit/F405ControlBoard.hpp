@@ -18,10 +18,12 @@ namespace F405ControlBoard
 extern GPIO ledPin[ONBOARD_LED_NUM];
 extern GPIO buttonPin[ONBOARD_BUTTON_NUM];
 extern GPIO buzzerPin;
+extern GPIO ue_sw, ue_a, ue_b;
 extern GPIO limitSwPin[ONBOARD_LIMITSW_NUM];
 extern GPIO lcd_rs, lcd_e, lcd_db4, lcd_db5, lcd_db6, lcd_db7;
 extern TIM tim3, tim4;
-extern UART uart4, uart5;
+extern TIM ue_red, ue_green, ue_blue;   //ユーザエンコーダ
+extern UART usart2, uart4, uart5;
 
 //基板の機能、設定
 //センサアクチュエータなし？

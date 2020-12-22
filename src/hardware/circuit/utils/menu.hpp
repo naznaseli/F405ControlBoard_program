@@ -25,10 +25,15 @@ public:
     //void setSerial(Serial* serial);
 
 private:
+    void update(void);
     bool inputSelect(void);
     bool inputCancel(void);
     bool inputRight(void);
     bool inputLeft(void);
+
+    bool m_select = false;
+    bool m_left = false;
+    bool m_right = false;
 
     void showMenu(const RotaryMenu* menu, int cursor);
 

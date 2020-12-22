@@ -35,6 +35,7 @@ public:
 protected:
     static int m_recursion;
 private:
+    virtual void update(void) = 0;
     virtual bool inputSelect(void) = 0;
     virtual bool inputCancel(void) = 0;
     virtual bool inputRight(void) = 0;

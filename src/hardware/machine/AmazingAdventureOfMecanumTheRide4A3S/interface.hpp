@@ -16,7 +16,7 @@ extern Led led[LED_NUM];
 extern Button button[BUTTON_NUM];
 extern Buzzer buzzer;
 extern CharacterLcd clcd;
-//UserEncoder userEncoder;
+extern UserEncoder userEnc;
 //CharacterLcd clcd;
 extern Serial* pcDebug;
 //Serial* pc;

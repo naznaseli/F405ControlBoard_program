@@ -10,14 +10,15 @@ bool testMotor(void);
 
 const MenuList List_Circuit[] =
 {
-    {"Enocder"      ,showEncoder            },
-    {"Potentio"     ,showPotentio           },
-    //{"show IMU"     ,testEmv                },
-    {"Motor"        ,testMotor              },
-    //{"Test EMV"     ,testEmv                },
-    //{"Test Controller"     ,testEmv                },
-    //{"Test EMV"     ,testEmv                },
-    //{"Test EMV"     ,testEmv                },
+    {"show Enocder"         ,showEncoder            },
+    {"show Potentio"        ,showPotentio           },
+    {"show LimitSwitch"     ,showPotentio           },
+    {"show IMU"             ,showEncoder             },
+    {"show Controller"      ,showEncoder                },
+    {"test Motor"           ,testMotor              },
+    {"test Valve"           ,testMotor                },
+    {"test SerialServo"     ,testMotor},
+    {"test SteppingMotor"     ,testMotor},
 };
 
 const RotaryMenu Menu_Circuit =
@@ -35,6 +36,13 @@ bool showCircuitMenu(void)
 
 bool showEncoder(void)
 {
+    //clcd
+    interface::clcd.line(0);
+    interface::clcd.printf("0:%5d  1:%5d", interface::userEnc.getRawValue(), 65535);
+    interface::clcd.line(1);
+    interface::clcd.printf("2:%5d  3:%5d", 65535, 65535);
+
+    //serial
     static bool initFlag = true;
     if(initFlag)
     {
@@ -58,14 +66,16 @@ bool showEncoder(void)
         interface::pcDebug->printf("Encoder");
         for(int i = 0; i < ENCODER_NUM; i++)
         {
-            interface::pcDebug->setCursor(1, i + 3);
+            if(i < 8) interface::pcDebug->setCursor(1, i + 3);
+            else interface::pcDebug->setCursor(26, i - 8 + 3);
             interface::pcDebug->printf("Encoder[%2d] = ", i);
         }
         initFlag = false;
     }
     for(int i = 0; i < ENCODER_NUM; i++)
     {
-        interface::pcDebug->setCursor(15, i + 3);
+        if(i < 8) interface::pcDebug->setCursor(15, i + 3);
+        else interface::pcDebug->setCursor(40, i - 8 + 3);
         //interface::pcDebug->printf("%5d", Encoder[i]);
         interface::pcDebug->printf("65535");
     }
