@@ -1,6 +1,11 @@
 #include "serial.hpp"
 #include "../F405ControlBoard.hpp"
+#include "../peripheral/USART.hpp"
 
+Serial::Serial(UART* usart)
+{
+    m_usart = usart;
+}
 
 //extern int __io_putchar(int ch);
 //extern int __io_getchar(void);
@@ -34,7 +39,29 @@ int Serial::read(uint8_t* data, int size)
 
 }
 
+//int Serial::printf(const char* format, ...)
+//{
+
+//}
+
 int Serial::printf(const char* format, ...)
 {
+    m_usart->printf(format);
+}
 
+void Serial::clear(void)
+{
+    printf("\033[2J");
+}
+
+void Serial::setCursor(int x, int y)
+{
+    printf("\033[%d;%dH", y+1, x+1);
+}
+
+
+
+void Serial::setColor(Color color)
+{
+    printf("\033[%dm", color);
 }

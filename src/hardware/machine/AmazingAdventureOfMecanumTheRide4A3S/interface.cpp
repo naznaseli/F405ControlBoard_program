@@ -8,6 +8,7 @@ Led led[4];
 Button button[4];
 Buzzer buzzer;
 CharacterLcd clcd;
+Serial* pcDebug;
 
 void setup(void)
 {
@@ -36,6 +37,7 @@ void setup(void)
     //通信を何で使うか決める
     //sixaxis3 = new Controller(&usart6);
     //pc = new PC(&usart3);
+    pcDebug = new Serial(&uart5);
 }
 
 //void interrupt_1ms(void)

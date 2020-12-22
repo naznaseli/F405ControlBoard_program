@@ -2,150 +2,61 @@
 #include "delay.hpp"
 #include "../F405ControlBoard.hpp"
 
+int MenuBase::m_recursion = 0;
+
 //表示のポリモーフィズム
 bool MenuBase::cycle(const RotaryMenu* menu)
 {
-    //int cursorNow = 0, cursorOld = 0;
-    static int cursor = 0;
-    static bool show = true;
-    static bool jump = false;
+    static int cursor[3] = {0};
+    static bool show[3] = {true, true, true};
+    static bool jump[3] = {false, false, false};
 
-    if(inputLeft() && !show && !jump)
+    if(!show[m_recursion] && !jump[m_recursion])
     {
-        //前
-        cursor = (cursor+menu->listNumber-1) % menu->listNumber;
-        show = true;
-    }
-    if(inputRight() && !show && !jump)
-    {
-        //次
-        cursor = (cursor+menu->listNumber+1) % menu->listNumber;
-        show = true;
-    }
-    if(inputReturn() && !show && !jump)
-    {
-        //決定
-        menu->menu[cursor].func();    //指定関数へジャンプ
-        jump = true;
-        //show = true;
-    }
-    if(inputCancel() && !show && !jump)
-    {
-        //キャンセル
-        return true;
-    }
-    if(show)
-    {
-        showMenu(menu, cursor);
-        show = false;
-    }
-    return false;
-    //while(inputReturn() || inputCancel() || inputLeft() || inputRight());
-    //delay_ms(10);
-}
-
-//表示のポリモーフィズム
-void MenuBase::showRotaryMenu(const RotaryMenu* menu)
-{
-    //UserEncoder enc(0, menu->listNumber-1, 0, true);
-    //int encVal = enc.calc();
-    //int encVal_old = encVal;
-    //setEncoderColor(&(menu->menu[encVal_old]).color);
-
-    //int cursorNow = 0, cursorOld = 0;
-    int cursor = 0;
-    bool show = false;
-
-    showMenu(menu, cursor);
-    while(inputReturn() || inputCancel() || inputLeft() || inputRight());
-
-    while(1)
-    {
-        if(inputLeft())
-        {
-            //前
-            cursor = (cursor--) % menu->listNumber;
-            show = true;
-        }
-        if(inputRight())
-        {
-            //次
-            cursor = (cursor++) % menu->listNumber;
-            show = true;
-        }
-        if(inputReturn())
+        if(inputSelect())
         {
             //決定
-            menu->menu[cursor].func();    //指定関数へジャンプ
-            show = true;
+            //F405ControlBoard::uart5.printf("return\n");
+            jump[m_recursion] = true;
         }
         if(inputCancel())
         {
             //キャンセル
-            return;
+            //F405ControlBoard::uart5.printf("cancel\n");
+            show[m_recursion] = true;   //次戻ってきたとき再表示するため
+            return true;
         }
-        if(show)
+        if(inputLeft())
         {
-            showMenu(menu, cursor);
-            show = false;
+            //前
+            //F405ControlBoard::uart5.printf("left\n");
+            cursor[m_recursion] = (cursor[m_recursion] + menu->listNumber - 1) % menu->listNumber;
+            show[m_recursion] = true;
         }
-        while(inputReturn() || inputCancel() || inputLeft() || inputRight());
-        delay_ms(10);
+        if(inputRight())
+        {
+            //次
+            //F405ControlBoard::uart5.printf("right\n");
+            cursor[m_recursion] = (cursor[m_recursion] + menu->listNumber + 1) % menu->listNumber;
+            show[m_recursion] = true;
+        }
     }
+
+    if(jump[m_recursion])
+    {
+        m_recursion++;
+        bool ret = menu->menu[cursor[m_recursion-1]].func();    //指定関数へジャンプ
+        m_recursion--;
+        if(ret)
+        {
+            jump[m_recursion] = false;
+            show[m_recursion] = true;
+        }
+    }
+    if(show[m_recursion])
+    {
+        showMenu(menu, cursor[m_recursion]);
+        show[m_recursion] = false;
+    }
+    return false;
 }
-
-
-//bool Menu::inputReturn(void)
-//{
-//    button[0].read();
-//}
-//
-////表示のポリモーフィズム
-//void Menu::showRotaryMenu(const Menu* menu)
-//{
-//    UserEncoder enc(0, menu->listNumber-1, 0, true);
-//    int encVal = enc.calc();
-//    int encVal_old = encVal;
-//    setEncoderColor(&(menu->menu[encVal_old]).color);
-//    clcd.line(0);
-//    clcd.printf(menu->menuTitle);   //タイトル表示
-//    clcd.line(1);
-//    clcd.printf(menu->menu[encVal_old].title);   //項目表示
-//
-//    while(button[0].read() || button[1].read() || button[2].read() || button[3].read());
-//
-//    while(1)
-//    {
-//        encVal = enc.calc();
-//        if(button[2].read())
-//        {
-//            //前
-//
-//        }
-//        if(button[3].read())
-//        {
-//            //次
-//
-//        }
-//        if(button[0].read())
-//        {
-//            //決定
-//            setEncoderColor(&COLOR24_BLACK);
-//            menu->menu[encVal_old].func();    //指定関数へジャンプ
-//
-//            enc.resetDiff();
-//            setEncoderColor(&(menu->menu[encVal_old]).color);
-//            clcd.line(0);
-//            clcd.printf(menu->menuTitle);
-//            clcd.line(1);
-//            clcd.printf(menu->menu[encVal_old].title);
-//            while(button[0].read() || button[1].read() || button[2].read() || button[3].read());
-//        }
-//        if(button[1].read())
-//        {
-//            //キャンセル
-//            return;
-//        }
-//        delay_ms(10);
-//    }
-//

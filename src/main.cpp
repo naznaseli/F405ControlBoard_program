@@ -5,13 +5,6 @@
 #include "./hardware/machine/AmazingAdventureOfMecanumTheRide4A3S/sensor.hpp"
 #include <stdio.h>
 
-Menu menu;
-
-void showCircuitMenu(void)
-{
-    menu.cycle(&Menu_Main);
-}
-
 //TODO: 割り込み処理のRTOS化
 //THINK: タイムスタンプほしいな
 
@@ -46,17 +39,13 @@ int main(void)
     clcd.printf("F405ControlBoard");
 
     buzzer.beep(30);
-    F405ControlBoard::uart5.printf("F405ControlBoard\n");
-    F405ControlBoard::uart4.printf("F405ControlBoard\n");
-    F405ControlBoard::uart5.printf("%f\n", 1.234);
-    setbuf(stdout, NULL);
-    printf("f405");
 
     while(1)
     {
         F405ControlBoard::cycle();
-        menu.cycle(&Menu_Main);
+        //menu.cycle(&Menu_Main);
         //Menu::cycle(&Menu_Main);
+        Menu::getInstance()->cycle(&Menu_Main);
 
         if(button[0].read()) led[0].write(1);
         else led[0].write(0);
